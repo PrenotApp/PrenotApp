@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="code" class="col-md-4 col-form-label text-md-end">{{ __('Codice scuola') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="code" type="code" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}" required autocomplete="code">
+
+                                @error('code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
