@@ -13,6 +13,8 @@ class ManagerController extends Controller
     public function indexSchool()
     {
         $schools = School::all();
+
+        return view('manager.schools', compact('schools'));
     }
 
     public function createSchool()
