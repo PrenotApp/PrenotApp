@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hours', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
             $table->time('start');
             $table->time('end');
             $table->timestamps();
