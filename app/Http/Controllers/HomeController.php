@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// imported
+use Illuminate\Support\Facades\Auth;
+use App\Models\School;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $school = School::where('id', $user->school_id)->firstOrFail();
+        $items = $school->items;
+
+        return view('main.index', compact('user','items'));
     }
 }

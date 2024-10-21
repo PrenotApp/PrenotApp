@@ -17,6 +17,7 @@ class Item extends Model
     protected $fillable = [
         'icon',
         'name',
+        'school_id',
         'available',
         'rack_id',
     ];

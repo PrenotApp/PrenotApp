@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('icon');
             $table->string('name');
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
             $table->boolean('available')->default(false);
-            $table->foreignId('rack_id')->constrained('racks')->onDelete('cascade')->nullable();
+            $table->foreignId('rack_id')->nullable()->constrained('racks')->onDelete('cascade');
             $table->timestamps();
         });
     }
