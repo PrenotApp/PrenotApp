@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// your imported
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 // Import other models
 use App\Models\User;
 use App\Models\Item;
@@ -15,7 +18,7 @@ use App\Models\Booking;
 
 class School extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',

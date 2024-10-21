@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\ManagerController as ManagerController;
+use GuzzleHttp\Middleware;
+use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/schools', [ManagerController::class, 'indexSchool'])->name('manager.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/schools', [ManagerController::class, 'indexSchool'])->name('manager.index');
+    Route::post('/schools', [ManagerController::class, 'storeSchool'])->name('manager.store');
+    Route::get('/schools/trashed', [ManagerController::class, 'trashedSchools'])->name('manager.trashed');
+    Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
+    Route::delete('/schools/{school}', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
+
+    // Route::resource('provaroute', ManagerController::class)
+});
+

@@ -75,7 +75,9 @@ class RegisterController extends Controller
         $data['role'] = 'common';
         $userCount = User::where('school_id', $school->id)->count(); // user in that school
 
-        if ($userCount === 0) {
+        if (User::count() === 0) { // user in the db
+            $data['role'] = 'manager';
+        } else if ($userCount === 0) {
             $data['role'] = 'admin';
         }
 

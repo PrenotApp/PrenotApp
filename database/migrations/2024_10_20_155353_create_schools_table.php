@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// your imported
+use Illuminate\Support\Facades\DB;
+
 return new class extends Migration
 {
     /**
@@ -15,8 +18,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+            $table->softDeletes();
             $table->timestamps();
         });
+
+        DB::table('schools')->insert([
+            'name' => 'SCUOLA PREDEFINITA',
+            'code' => 'ADM908IN',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
