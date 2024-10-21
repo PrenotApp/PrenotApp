@@ -16,13 +16,15 @@
         </form>
 
         @foreach($schools as $school)
-            <h2>{{ $school->name }} - <span>Codice: {{ $school->code }}</span></h2>
-            <form action="{{ route('manager.delete', $school) }}" method="POST">
-                @method('DELETE')
-                @csrf
+            @if ($school->code !== 'ADM908IN')
+                <h2>{{ $school->name }} - <span>Codice: {{ $school->code }}</span></h2>
+                <form action="{{ route('manager.delete', $school) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
 
-                <button>Elimina</button>
-            </form>
+                    <button>Elimina</button>
+                </form>
+            @endif
         @endforeach
     @else
         {{@abort(404)}} {{-- // otherwhise u obtain a 404 --}}
