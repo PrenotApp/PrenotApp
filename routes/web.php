@@ -27,8 +27,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware('auth')->group(function () {
     Route::get('/schools', [ManagerController::class, 'indexSchool'])->name('manager.index');
     Route::post('/schools', [ManagerController::class, 'storeSchool'])->name('manager.store');
+    Route::get('/schools/trashed', [ManagerController::class, 'trashedSchools'])->name('manager.trashed');
+    Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
+    Route::delete('/schools/{school}', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
 
-    // Route::get('/schools/create', [ManagerController::class, 'createSchool'])->name('manager.create');
-    // Route::resource('apartments', ManagerController::class)
+    // Route::resource('provaroute', ManagerController::class)
 });
 

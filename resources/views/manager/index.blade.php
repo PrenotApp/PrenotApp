@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(Auth::user()->role == 'manager') {{-- # only if you are the manager you can see this page --}}
-
-        {{-- <a href="{{ route('manager.create') }}">Aggiungi una scuola</a> --}}
+    @if(Auth::user()->role == 'manager') {{-- // only if you are the manager you can see this page --}}
+        <a href="{{ route('manager.trashed') }}">
+            Cestino
+        </a>
 
         <form action="{{ route('manager.store') }}" method="POST">
             @csrf
@@ -15,9 +16,15 @@
         </form>
 
         @foreach($schools as $school)
-            <h1>{{ $school->name }} - <span>Codice: {{ $school->code }}</span></h1>
+            <h2>{{ $school->name }} - <span>Codice: {{ $school->code }}</span></h2>
+            <form action="{{ route('manager.delete', $school) }}" method="POST">
+                @method('DELETE')
+                @csrf
+
+                <button>Elimina</button>
+            </form>
         @endforeach
     @else
-        {{@abort(404)}} {{-- # otherwhise u obtain a 404 --}}
+        {{@abort(404)}} {{-- // otherwhise u obtain a 404 --}}
     @endif
 @endsection

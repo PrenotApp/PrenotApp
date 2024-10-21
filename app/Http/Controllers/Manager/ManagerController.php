@@ -32,4 +32,23 @@ class ManagerController extends Controller
 
         return redirect()->route('manager.index');
     }
+
+    public function deleteSchool(School $school)
+    {
+        $school->delete(); // soft delete
+        return redirect()->route('manager.index');
+    }
+
+    public function trashedSchools()
+    {
+        $schools = School::onlyTrashed()->get();
+        return view('manager.trashed', compact('schools'));
+    }
+
+    public function forceDeleteSchool($id)
+    {
+        $school = School::onlyTrashed()->where('id', $id)->firstOrFail();
+        $school->forceDelete();
+        return redirect()->route('manager.trashed');
+    }
 }
