@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // imported
 use Illuminate\Support\Facades\Auth;
 use App\Models\School;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -29,8 +30,20 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $school = School::where('id', $user->school_id)->firstOrFail();
-        $items = $school->items;
 
-        return view('main.index', compact('user','items'));
+        $items = DB::table('items')
+            ->join('categories', 'items.category_id', '=', 'categories.id')
+            ->select('categories.name as category_name', 'items.name')
+            ->where('items.school_id', $school->id)
+            ->orderBy('category_id')
+            ->get();
+
+        $groupedItems = $items->groupBy('category_name')
+            ->map(function ($items) {
+                return $items->pluck('name');
+            })
+            ->toArray();
+
+        return view('main.index', compact('user','groupedItems'));
     }
 }

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @dump($items)
     @if($user->role === 'admin')
         <a href="{{ route('admin.create.item') }}">
             Add an item
@@ -10,4 +9,12 @@
             Add a category
         </a>
     @endif
+    @foreach ($groupedItems as $category => $items)
+    <h2>{{ $category }}</h2>
+    <ul>
+        @foreach ($items as $item)
+            <li>{{ $item }}</li>  <!-- Qui stampi i nomi degli item -->
+        @endforeach
+    </ul>
+@endforeach
 @endsection
