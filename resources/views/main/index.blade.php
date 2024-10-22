@@ -10,11 +10,11 @@
         </a>
     @endif
     @foreach ($groupedItems as $category => $items)
-    <h2>{{ $category }}</h2>
-    <ul>
-        @foreach ($items as $item)
-            <li>{{ $item }}</li>  <!-- Qui stampi i nomi degli item -->
-        @endforeach
-    </ul>
+        <h2>{{ $category }}</h2>
+        <ul>
+            @foreach ($items as $item)
+                <li><a href="{{ route('admin.edit.item', $item->id) }}">{{ $item->name }}</a></li>
+            @endforeach
+        </ul>
 @endforeach
 @endsection

@@ -33,14 +33,14 @@ class HomeController extends Controller
 
         $items = DB::table('items')
             ->join('categories', 'items.category_id', '=', 'categories.id')
-            ->select('categories.name as category_name', 'items.name')
+            ->select('categories.name as category_name', 'items.*')
             ->where('items.school_id', $school->id)
             ->orderBy('category_id')
             ->get();
 
         $groupedItems = $items->groupBy('category_name')
             ->map(function ($items) {
-                return $items->pluck('name');
+                return $items;
             })
             ->toArray();
 
