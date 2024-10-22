@@ -29,8 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
     Route::delete('/schools/{school}', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
 
-    Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-    Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/create/category', [AdminController::class, 'createCategory'])->name('admin.create.category');
+    Route::get('/create/item', [AdminController::class, 'createItem'])->name('admin.create.item');
+    Route::post('/create/category', [AdminController::class, 'storeCategory'])->name('admin.store.category');
+    Route::post('/create/item', [AdminController::class, 'storeItem'])->name('admin.store.item');
 
     // Route::resource('provaroute', ManagerController::class)
 });
