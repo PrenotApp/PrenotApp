@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
     Route::delete('/schools/{school}', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
 
+    Route::get('/show/{id}', [AdminController::class, 'showItem'])->name('admin.show.item');
     Route::get('/create/item', [AdminController::class, 'createItem'])->name('admin.create.item');
     Route::post('/create/item', [AdminController::class, 'storeItem'])->name('admin.store.item');
     Route::get('/edit/{id}/item', [AdminController::class, 'editItem'])->name('admin.edit.item');

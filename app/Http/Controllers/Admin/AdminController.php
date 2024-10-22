@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function showItem($id)
+    {
+        $item = Item::findOrFail($id);
+        $bookings = $item->bookings();
+        return view('main.showItem', compact('bookings','item'));
+    }
+
     public function createItem()
     {
         $categories = Category::all();
