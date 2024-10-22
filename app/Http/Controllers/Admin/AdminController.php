@@ -17,7 +17,14 @@ class AdminController extends Controller
 {
     public function showItem($id)
     {
+        $user = Auth::user();
+        $school = School::where('id', $user->school_id)->firstOrFail();
         $item = Item::findOrFail($id);
+
+        if ($item->school_id !== $school->id) {
+            abort(403, 'Accesso negato: questo item non appartiene alla tua scuola.');
+        }
+
         $bookings = $item->bookings();
         return view('main.showItem', compact('bookings','item'));
     }
@@ -65,6 +72,14 @@ class AdminController extends Controller
         $item->update($validatedData);
 
         return redirect()->route('home')->with('success', 'Item aggiornato con successo!');
+    }
+
+    public function deleteItem($id)
+    {
+        $item = Item::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('home');
     }
 
     public function createCategory()

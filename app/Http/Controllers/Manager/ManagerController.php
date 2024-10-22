@@ -28,7 +28,9 @@ class ManagerController extends Controller
         // Genera un codice alfanumerico e lo rende uppercase
         do {
             $code = strtoupper(Str::random(8));
-        } while (Item::where('code', $code)->exists()); // Controlla se esiste già
+        } while (School::where('code', $code)->exists()); // Controlla se esiste già
+
+        $data['code'] = $code;
 
         $school = new School($data);
         $school->save();
