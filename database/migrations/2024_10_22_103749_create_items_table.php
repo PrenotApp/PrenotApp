@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('icon');
             $table->string('name');
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->boolean('available')->default(false);
             $table->foreignId('rack_id')->nullable()->constrained('racks')->onDelete('cascade');
             $table->timestamps();
