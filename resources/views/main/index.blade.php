@@ -13,8 +13,11 @@
         <h2>{{ $category }}</h2>
         <ul>
             @foreach ($items as $item)
-                <li><a href="{{ route('admin.edit.item', $item->id) }}">{{ $item->name }}</a></li>
+                <li>
+                    <a href="{{ route('admin.show.item', $item->id) }}">{{ $item->name }}</a>
+                    <a href="{{ route('admin.edit.item', $item->id) }}">Modifica</a>
+                </li>
             @endforeach
         </ul>
-@endforeach
+    @endforeach
 @endsection

@@ -35,6 +35,7 @@ class HomeController extends Controller
             ->join('categories', 'items.category_id', '=', 'categories.id')
             ->select('categories.name as category_name', 'items.*')
             ->where('items.school_id', $school->id)
+            ->whereNull('items.deleted_at')
             ->orderBy('category_id')
             ->get();
 
