@@ -10,10 +10,11 @@ use App\Models\School;
 use App\Models\Rack;
 use App\Models\Booking;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
         'name',
