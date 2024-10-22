@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manager\ManagerController as ManagerController;
+use App\Http\Controllers\Admin\AdminController as AdminController;
 use GuzzleHttp\Middleware;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 
@@ -16,13 +17,10 @@ use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/schools', [ManagerController::class, 'indexSchool'])->name('manager.index');
@@ -31,6 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
     Route::delete('/schools/{school}', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
 
+    Route::get('/create/item', [AdminController::class, 'createItem'])->name('admin.create.item');
+    Route::post('/create/item', [AdminController::class, 'storeItem'])->name('admin.store.item');
+    Route::get('/edit/{id}/item', [AdminController::class, 'editItem'])->name('admin.edit.item');
+    Route::put('/update/{id}/item', [AdminController::class, 'updateItem'])->name('admin.update.item');
+
+    Route::get('/create/category', [AdminController::class, 'createCategory'])->name('admin.create.category');
+    Route::post('/create/category', [AdminController::class, 'storeCategory'])->name('admin.store.category');
     // Route::resource('provaroute', ManagerController::class)
 });
 

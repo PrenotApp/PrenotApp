@@ -9,14 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\School;
 use App\Models\Rack;
 use App\Models\Booking;
+use App\Models\Category;
 
 class Item extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'icon',
         'name',
+        'school_id',
+        'category_id',
         'available',
         'rack_id',
     ];
@@ -34,5 +36,10 @@ class Item extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

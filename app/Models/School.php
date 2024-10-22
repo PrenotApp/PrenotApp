@@ -15,6 +15,7 @@ use App\Models\Approved;
 use App\Models\Hour;
 use App\Models\Rack;
 use App\Models\Booking;
+use App\Models\Category;
 
 class School extends Model
 {
@@ -43,6 +44,11 @@ class School extends Model
     public function hours()
     {
         return $this->hasMany(Hour::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 
     public function racks()

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 // your import
 use App\Http\Requests\CreateSchoolRequest as CreateSchoolRequest;
 use Illuminate\Support\Str;
+use App\Models\Item;
 
 // import models
 use App\Models\School;
@@ -25,7 +26,9 @@ class ManagerController extends Controller
         $data = $request->validated();
 
         // Genera un codice alfanumerico e lo rende uppercase
-        $data['code'] = strtoupper(Str::random(8));
+        do {
+            $code = strtoupper(Str::random(8));
+        } while (Item::where('code', $code)->exists()); // Controlla se esiste già
 
         $school = new School($data);
         $school->save();
