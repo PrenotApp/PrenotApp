@@ -2,10 +2,10 @@
 
 @section('content')
     @if($user->role === 'admin')
-        <a href="{{ route('admin.create.item') }}">
+        <a href="{{ route('item.create') }}">
             Add an item
         </a>
-        <a href="{{ route('admin.create.category') }}">
+        <a href="{{ route('category.create') }}">
             Add a category
         </a>
     @endif
@@ -14,8 +14,8 @@
         <ul>
             @foreach ($items as $item)
                 <li>
-                    <a href="{{ route('admin.show.item', $item->id) }}">{{ $item->name }}</a>
-                    <a href="{{ route('admin.edit.item', $item->id) }}">Modifica</a>
+                    <a href="{{ route('item.show', $item->id) }}">{{ $item->name }}</a>
+                    <a href="{{ route('item.edit', $item->id) }}">Modifica</a>
                 </li>
             @endforeach
         </ul>

@@ -2,7 +2,7 @@
 
 @section('content')
     @if(Auth::user()->role == 'admin')
-        <form action="{{ route('admin.update.item', $item->id) }}" method="POST">
+        <form action="{{ route('item.update', $item->id) }}" method="POST">
             @csrf
             @method('PUT')
 

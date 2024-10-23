@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('admin.store.item') }}" method="POST">
+    <form action="{{ route('item.store') }}" method="POST">
         @csrf
 
         <label for="category_id">Category</label>
