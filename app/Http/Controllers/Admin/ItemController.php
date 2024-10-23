@@ -30,12 +30,15 @@ class ItemController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('school_id', Auth::user()->school_id)
+            ->get();
         return view('items.create', compact('categories'));
     }
 
     public function store(CreateItemRequest $request)
     {
+        dd($request);
+
         $data = $request->validated();
         $user = Auth::user();
         $data['school_id'] = $user->school_id;
@@ -55,7 +58,8 @@ class ItemController extends Controller
             abort(403, 'Accesso negato: questo item non appartiene alla tua scuola.');
         }
 
-        $categories = Category::all();
+        $categories = Category::where('school_id', Auth::user()->school_id)
+            ->get();
         return view('items.edit', compact('categories', 'item'));
     }
 
