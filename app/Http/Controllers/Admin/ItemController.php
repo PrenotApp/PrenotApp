@@ -37,8 +37,6 @@ class ItemController extends Controller
 
     public function store(CreateItemRequest $request)
     {
-        dd($request);
-
         $data = $request->validated();
         $user = Auth::user();
         $data['school_id'] = $user->school_id;
