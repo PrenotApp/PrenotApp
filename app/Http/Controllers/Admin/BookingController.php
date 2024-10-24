@@ -13,9 +13,7 @@ class BookingController extends Controller
 {
     public function index()
     {
-        // $bookings = $this->getBookingsQuery()->with('hour')->orderBy('date', 'asc')->get();
-        $bookings = Booking::with('hour','item')->get();
-        dd($bookings);
+        $bookings = $this->getBookingsQuery()->with('hour')->orderBy('date', 'asc')->get();
         return view('bookings.index', compact('bookings'));
     }
 

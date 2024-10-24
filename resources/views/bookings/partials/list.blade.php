@@ -1,13 +1,11 @@
 @if ($bookings->isEmpty())
     <p>Nessuna prenotazione trovata.</p>
 @else
-    <table class="table">
+    <table>
         <thead>
             <tr>
-                <th>#</th>
                 <th>Data</th>
-                <th>Ora Inizio</th>
-                <th>Ora Fine</th>
+                <th>Ora</th>
                 <th>Utente</th>
                 <th>Item</th>
             </tr>
@@ -15,12 +13,20 @@
         <tbody>
             @foreach ($bookings as $booking)
                 <tr>
-                    <td>{{ $booking->id }}</td>
                     <td>{{ $booking->date }}</td>
-                    <td>{{ $booking->hour->start->format('H:i') }}</td>
-                    <td>{{ $booking->hour->end->format('H:i') }}</td> {{-- Collega il modello Hour --}}
-                    <td>{{ $booking->user_id }}</td> {{-- Assumi di avere un campo cliente_nome --}}
-                    <td>{{ $booking->item_id }}</td> {{-- Assumi di avere un campo descrizione --}}
+                    <td>{{ $booking->hour->name}}</td>
+                    <td>{{ $booking->user->email }}</td>
+                    <td>{{ $booking->item->name }}</td>
+                    @if(Auth::user()->id === $booking->user_id)
+                        <td>
+                            <form action="{{ route('booking.delete', $booking->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit">Elimina</button>
+                            </form>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
