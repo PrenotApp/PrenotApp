@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
     // # Bookings
     Route::get('bookings',[BookingController::class, 'index'])->name('booking.index');
     Route::get('/bookings/filter', [BookingController::class, 'filter'])->name('booking.filter');
+    Route::get('bookings/create',[BookingController::class, 'create'])->name('booking.create');
+    Route::get('/bookings/availablehours', [BookingController::class, 'getAvailableHours'])->name('getAvailableHours');
     Route::delete('/bookings/{id}/delete', [BookingController::class, 'delete'])->name('booking.delete');
     // Route::resource('provaroute', ManagerController::class);
 });

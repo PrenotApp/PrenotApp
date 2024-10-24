@@ -24,7 +24,7 @@ class ItemController extends Controller
             abort(403);
         }
 
-        $bookings = $item->bookings();
+        $bookings = $item->bookings;
         return view('items.show', compact('bookings','item'));
     }
 

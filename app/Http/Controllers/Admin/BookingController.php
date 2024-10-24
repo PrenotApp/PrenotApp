@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 // your imports
 use App\Models\Booking;
+use App\Models\Item;
+use App\Models\Hour;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -47,5 +49,49 @@ class BookingController extends Controller
         }
 
         return Booking::query(); // Per gli altri ruoli
+    }
+
+    public function delete($id){
+        $booking = Booking::findOrFail($id);
+        $booking->delete();
+        return redirect()->route('booking.index');
+    }
+
+    public function create(){
+        $items = Item::where('school_id', Auth::user()->school_id)
+                        ->get();
+        $hours = Hour::where('school_id', Auth::user()->school_id)
+                        ->get();
+
+        return view('bookings.create',compact('items','hours'));
+    }
+
+    public function getAvailableHours(Request $request)
+    {
+        // Valida la richiesta (per evitare richieste incomplete)
+        $request->validate([
+            'item_id' => 'required|exists:items,id',
+            'date' => 'required|date'
+        ]);
+
+        $itemId = $request->input('item_id');
+        $date = $request->input('date');
+        $schoolId = Auth::user()->school_id;
+
+        // Recupera tutte le ore della scuola
+        $hours = Hour::where('school_id', $schoolId)->get();
+
+        // Trova le ore già prenotate
+        $bookedHours = Booking::where('item_id', $itemId)
+                        ->where('date', $date)
+                        ->pluck('hour_id');
+
+        // Filtra le ore disponibili
+        $availableHours = $hours->filter(function($hour) use ($bookedHours) {
+            return !$bookedHours->contains($hour->id);
+        });
+
+        // Restituisce la lista delle ore disponibili come JSON
+        return response()->json($availableHours);
     }
 }
