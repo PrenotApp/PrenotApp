@@ -28,7 +28,7 @@ class HourController extends Controller
     public function create()
     {
         if (Auth::user()->role !== 'admin'){
-            abort(403, 'Accesso negato: solo gli admin possono creare orari.');
+            abort(403);
         }
         return view('hours.create');
     }
@@ -49,7 +49,7 @@ class HourController extends Controller
     {
         $hour = Hour::findOrFail($id);
         if (Auth::user()->role !== 'admin' || Auth::user()->school_id !== $hour->school_id){
-            abort(403, 'Accesso negato: non hai i permessi per modificare questo orario');
+            abort(403);
         }
         $hour['start'] = date('H:i', strtotime($hour['start']));
         $hour['end'] = date('H:i', strtotime($hour['end']));

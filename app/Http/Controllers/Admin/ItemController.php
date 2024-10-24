@@ -21,7 +21,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
 
         if ($item->school_id !== $school->id) {
-            abort(403, 'Accesso negato: questo item non appartiene alla tua scuola.');
+            abort(403);
         }
 
         $bookings = $item->bookings();
@@ -55,7 +55,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
 
         if ($item->school_id !== $school->id) {
-            abort(403, 'Accesso negato: questo item non appartiene alla tua scuola.');
+            abort(403);
         }
 
         $categories = Category::where('school_id', Auth::user()->school_id)
