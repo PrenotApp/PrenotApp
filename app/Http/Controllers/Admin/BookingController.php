@@ -10,12 +10,20 @@ use App\Models\Booking;
 use App\Models\Item;
 use App\Models\Hour;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateBookingRequest as CreateBookingRequest;
 
 class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = $this->getBookingsQuery()->with('hour')->orderBy('date', 'asc')->get();
+        $bookings = $this->getBookingsQuery()
+            ->with('hour')
+            ->orderBy('date', 'asc')
+            ->get()
+            ->map(function ($booking) {
+                $booking->date = \Carbon\Carbon::parse($booking->date)->format('d/m/Y');
+                return $booking;
+            });
         return view('bookings.index', compact('bookings'));
     }
 
@@ -93,5 +101,16 @@ class BookingController extends Controller
 
         // Restituisce la lista delle ore disponibili come JSON
         return response()->json($availableHours);
+    }
+
+    public function store(CreateBookingRequest $request)
+    {
+        $data = $request->validated();
+        $data['school_id'] = Auth::user()->school_id;
+        $data['user_id'] = Auth::user()->id;
+
+        $booking = Booking::create($data);
+        $booking->save();
+        return redirect()->route('booking.index');
     }
 }

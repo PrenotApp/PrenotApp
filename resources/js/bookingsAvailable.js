@@ -2,13 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemSelect = document.getElementById('item_id');
     const dateInput = document.getElementById('date');
     const hourSelect = document.getElementById('hour_id');
+    const dateError = document.getElementById('dateError');
 
     // Funzione che invia la richiesta e aggiorna la select delle ore
     function loadAvailableHours() {
         const itemId = itemSelect.value;
         const date = dateInput.value;
-
-        const url = "{{ route('getAvailableHours') }}";
 
         // Verifica che i campi siano selezionati
         if (itemId && date) {
@@ -25,7 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if(response.data.length === 0) {
                     // logica per quando non ci sono orari disponibili
+                    dateError.style.display = 'inline';
+                    dateError.innerText = 'Non ci sono orari disponibili, prova a cambiare oggetto o data';
+                } else {
+                    dateError.style.display = 'none';
                 }
+
+                hourSelect.style.display = 'inline-block';
 
                 // Aggiungi le nuove opzioni delle ore disponibili
                 response.data.forEach(function(hour) {

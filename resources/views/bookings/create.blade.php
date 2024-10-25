@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
-    <form action="" method="POST">
+    <form action="{{ route('booking.store') }}" method="POST">
+        @csrf
+
         <label for="item_id">Item</label>
         <select name="item_id" id="item_id">
             @foreach ($items as $item)
@@ -18,8 +20,10 @@
 
         <label for="hour_id">Ora</label>
         <select name="hour_id" id="hour_id">
+            {{-- gestito dinamicamente da js --}}
         </select>
-
+        <p id="dateError">Seleziona una data per vedere gli orari disponibili</p>
+        
         <button type="submit">Prenota</button>
     </form>
 @endsection
