@@ -11,6 +11,7 @@ use App\Models\Item;
 use App\Models\Hour;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateBookingRequest as CreateBookingRequest;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -31,14 +32,23 @@ class BookingController extends Controller
     {
         $query = $this->getBookingsQuery();
 
-        // Filtri
-        if ($request->filled('data_inizio') && $request->filled('data_fine')) {
-            $query->whereBetween('date', [$request->data_inizio, $request->data_fine]);
-        }
+            // Logga la richiesta per debug
+            Log::info('Filter request data:', $request->all());
 
-        $bookings = $query->orderBy('date', 'asc')->get();
+            // Filtri
+            if ($request->filled('start_date') && $request->filled('end_date')) {
+                $query->whereBetween('date', [$request->start_date, $request->end_date]);
+            }
 
-        return view('bookings.partials.list', compact('bookings'))->render();
+            $bookings = $query->orderBy('date', 'asc')
+                        ->get()
+                        ->map(function ($booking) {
+                            $booking->date = \Carbon\Carbon::parse($booking->date)->format('d/m/Y');
+                            return $booking;
+                        });
+
+            $html = view('bookings.partials.list', compact('bookings'))->render();
+            return response()->json(['html' => $html]);
     }
 
     private function getBookingsQuery() // filter by the role
