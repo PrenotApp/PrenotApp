@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateSchoolRequest as CreateSchoolRequest;
 use Illuminate\Support\Str;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 
 // import models
 use App\Models\School;
@@ -17,8 +18,12 @@ class ManagerController extends Controller
 {
     public function indexSchool()
     {
-        $schools = School::all();
-        return view('manager.index', compact('schools'));
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
+            $schools = School::all();
+            return view('manager.index', compact('schools'));
+        }
     }
 
     public function storeSchool(CreateSchoolRequest $request)

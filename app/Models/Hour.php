@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 // Import other models
 use App\Models\School;
+use App\Models\Booking;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hour extends Model
@@ -23,5 +24,10 @@ class Hour extends Model
     public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

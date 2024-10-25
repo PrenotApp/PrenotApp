@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
+use App\Http\Controllers\Admin\BookingController as BookingController;
 use GuzzleHttp\Middleware;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
     Route::put('/item/{id}/update', [ItemController::class, 'update'])->name('item.update');
     Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->name('item.delete');
-    // # Category
+    // # Categories
     Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
     Route::post('/category/create', [CategoryController::class, 'store'])->name('category.store');
     // # Hours
@@ -50,6 +51,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/time/{id}/edit',[HourController::class, 'edit'])->name('hour.edit');
     Route::put('/time/{id}/update',[HourController::class, 'update'])->name('hour.update');
     Route::delete('/time/{id}/delete',[HourController::class, 'delete'])->name('hour.delete');
+    // # Bookings
+    Route::get('bookings',[BookingController::class, 'index'])->name('booking.index');
+    Route::get('/bookings/filter', [BookingController::class, 'filter'])->name('booking.filter');
+    Route::get('bookings/create',[BookingController::class, 'create'])->name('booking.create');
+    Route::post('bookings/store',[BookingController::class, 'store'])->name('booking.store');
+    Route::get('/bookings/availablehours', [BookingController::class, 'getAvailableHours'])->name('getAvailableHours');
+    Route::delete('/bookings/{id}/delete', [BookingController::class, 'delete'])->name('booking.delete');
     // Route::resource('provaroute', ManagerController::class);
 });
 

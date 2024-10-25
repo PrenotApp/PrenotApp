@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    {{-- Custom Links --}}
+    @yield('links')
 </head>
 <body>
     <div id="app">

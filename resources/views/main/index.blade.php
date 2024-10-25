@@ -8,6 +8,9 @@
         <a href="{{ route('category.create') }}">
             Add a category
         </a>
+        <a href="{{ route('hour.create') }}">
+            Add a time
+        </a>
     @endif
     @foreach ($groupedItems as $category => $items)
         <h2>{{ $category }}</h2>

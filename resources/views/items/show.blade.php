@@ -12,6 +12,8 @@
     @endif
     <h2>Prenotazioni passate:</h2>
     @foreach($bookings as $booking)
-        {{ $booking->date }}
+        <p>{{ $booking->user->name }}</p>
+        <p>{{ $booking->date }}</p>
+        <p>{{ $booking->hour->name }}</p>
     @endforeach
 @endsection
