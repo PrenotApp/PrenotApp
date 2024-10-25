@@ -1,14 +1,17 @@
-$(document).ready(function () {
-    $('#filterForm').on('submit', function (e) {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('filterForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
-        $.ajax({
-            url: "{{ route('bookings.filter') }}", // Rotta per il filtro
-            method: "GET",
-            data: $(this).serialize(), // Invia i dati del form
-            success: function (response) {
-                $('#bookingsList').html(response); // Aggiorna la lista con i risultati filtrati
-            }
-        });
+        // Crea una query string
+        const params = new URLSearchParams(new FormData(this)).toString();
+
+        // Effettua la richiesta GET
+        axios.get(`/bookings/filter?${params}`)
+            .then(function (response) {
+                document.getElementById('bookingsList').innerHTML = response.data.html; // Aggiorna la lista con i risultati filtrati
+            })
+            .catch(function (error) {
+                console.error("Errore durante il filtro delle prenotazioni:", error); // Gestisci l'errore
+            });
     });
 });

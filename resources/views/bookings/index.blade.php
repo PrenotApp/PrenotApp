@@ -8,14 +8,16 @@
     <h1>Lista Prenotazioni</h1>
 
     <form id="filterForm">
+        @csrf
+        
         <div class="row">
             <div class="col-md-3">
-                <label for="data_inizio">Data Inizio:</label>
-                <input type="date" name="data_inizio" id="data_inizio" class="form-control">
+                <label for="start_date">Da:</label>
+                <input type="date" name="start_date" id="start_date" class="form-control">
             </div>
             <div class="col-md-3">
-                <label for="data_fine">Data Fine:</label>
-                <input type="date" name="data_fine" id="data_fine" class="form-control">
+                <label for="end_date">A:</label>
+                <input type="date" name="end_date" id="end_date" class="form-control">
             </div>
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary mt-4">Filtra</button>
