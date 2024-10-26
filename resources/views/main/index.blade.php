@@ -11,6 +11,9 @@
         <a href="{{ route('hour.create') }}">
             Add a time
         </a>
+        <a href="{{ route('approved.index') }}">
+            Docenti
+        </a>
     @endif
     @foreach ($groupedItems as $category => $items)
         <h2>{{ $category }}</h2>
