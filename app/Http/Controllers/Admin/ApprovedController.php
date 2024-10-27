@@ -15,7 +15,7 @@ class ApprovedController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role == 'common') {
+        if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
             $approveds = Approved::all();
