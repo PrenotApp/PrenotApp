@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function() { // Quando la pagina e
 })
 
 function validate() {
-    const inputs = document.querySelectorAll('.error'); // all errors display el
+    const inputs = document.querySelectorAll('.error'); // tutti gli errori
 
     for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].classList.contains('on')) { // if an input is showed, return false
+        if (inputs[i].classList.contains('on')) { // se almeno un errore e' visualizzato,  falso
             return false;
         }
     }
-    return true; // else return true
+    return true; // altrimenti vero
 }
 
 function updateInput(){
@@ -68,6 +68,7 @@ function updateInput(){
         emailFunc(emailEl, emailErrorEl)
     })
 
+    // # SCHOOL CODE
     const codeEl = document.getElementById('code'); // Prendi l'input el
     const codeErrorEl = document.querySelector('#code ~ .error'); // Prendi l'error el
     function codeFunc(element, error) {
@@ -86,6 +87,7 @@ function updateInput(){
         codeFunc(codeEl, codeErrorEl)
     })
 
+    // # PASSWORD
     const passwordEl = document.getElementById('password'); // Prendi l'input el
     const passwordErrorEl = document.querySelector('#password ~ .error'); // Prendi l'error el
     function passwordFunc(element, error) {
@@ -105,6 +107,7 @@ function updateInput(){
         pswConfirmFunc(pswConfirmEl, pswConfirmErrorEl)
     })
 
+    // # PASSWORD CONFIRMATION
     const pswConfirmEl = document.getElementById('password-confirm'); // Prendi l'input el
     const pswConfirmErrorEl = document.querySelector('#password-confirm ~ .error'); // Prendi l'error el
     function pswConfirmFunc(element, error) {

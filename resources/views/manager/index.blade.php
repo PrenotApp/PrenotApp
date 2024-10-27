@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('links')
+    @vite(['resources/js/validations/schoolCreate.js'])
+@endsection
+
 @section('content')
     <a href="{{ route('manager.trashed') }}">
         Cestino
     </a>
 
-    <form action="{{ route('manager.store') }}" method="POST">
+    <form action="{{ route('manager.store') }}" method="POST" id="myForm">
         @csrf
 
         <label for="name">Nome</label>
