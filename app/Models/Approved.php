@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 // Import other models
 use App\Models\School;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Approved extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'email',
