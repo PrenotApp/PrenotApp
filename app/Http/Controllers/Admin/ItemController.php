@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\School;
 use App\Models\Category;
-use App\Http\Requests\CreateItemRequest;
+use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
@@ -35,11 +35,23 @@ class ItemController extends Controller
         return view('items.create', compact('categories'));
     }
 
-    public function store(CreateItemRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
-        $user = Auth::user();
-        $data['school_id'] = $user->school_id;
+        $schoolId = Auth::user()->school_id;
+
+        $data = $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('items')->where(function ($query) use ($schoolId) {
+                    return $query->where('school_id', $schoolId);
+                }),
+            ],
+            'category_id' => 'required',
+        ], [
+            'name.unique' => 'Esiste già un oggetto con questo nome',
+        ]);
+
+        $data['school_id'] = $schoolId;
 
         $item = Item::create($data);
         $item->save();

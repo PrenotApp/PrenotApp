@@ -10,6 +10,7 @@ use App\Models\Hour;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreHourRequest as StoreHourRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class HourController extends Controller
 {
@@ -33,14 +34,28 @@ class HourController extends Controller
         return view('hours.create');
     }
 
-    public function store(StoreHourRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $schoolId = Auth::user()->school_id;
 
-        $data['school_id'] = Auth::user()->school_id;
+        $validatedData = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('hours')->where(function ($query) use ($schoolId) {
+                    return $query->where('school_id', $schoolId);
+                }),
+            ],
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'school_id' => 'nullable'
+        ], [
+            'name.unique' => 'Esiste già un elemento con questo nome per la tua scuola.',
+        ]);
 
-        $hour = Hour::create($data);
-        $hour->save();
+        $validatedData['school_id'] = $schoolId;
+        $hour = Hour::create($validatedData);
 
         return redirect()->route('hour.index');
     }
@@ -59,10 +74,25 @@ class HourController extends Controller
     public function update(StoreHourRequest $request, $id)
     {
         $hour = Hour::findOrFail($id);
-        $data = $request->validated();
+        $schoolId = Auth::user()->school_id;
 
+        $validatedData = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('hours')->where(function ($query) use ($schoolId) {
+                    return $query->where('school_id', $schoolId);
+                })->ignore($hour->id), // Ignora l'orario attuale per il controllo di unicità
+            ],
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'school_id' => 'nullable',
+        ], [
+            'name.unique' => 'Esiste già un elemento con questo nome per la tua scuola.',
+        ]);
 
-        $hour->update($data);
+        $hour->update($validatedData);
 
         return redirect()->route('hour.index')->with('success', 'Orario aggiornato con successo!');
     }

@@ -4,7 +4,6 @@ myForm.addEventListener('submit', function(event) {
 
     const nameEl = document.getElementById('name');
     if(nameEl.value.length > 0){
-        console.log("ciao")
         myForm.submit();
     }
 })
