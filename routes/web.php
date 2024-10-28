@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\HourController as HourController;
 use App\Http\Controllers\Admin\BookingController as BookingController;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 use GuzzleHttp\Middleware;
+use Illuminate\Database\Capsule\Manager;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schools/trashed', [ManagerController::class, 'trashedSchools'])->name('manager.trashed');
     Route::delete('/schools/{school}/forcedelete', [ManagerController::class, 'forceDeleteSchool'])->name('manager.forceDelete');
     Route::delete('/schools/{school}/delete', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
+    Route::patch('/schools/{school}/restore',[ManagerController::class, 'restore'])->name('manager.restore');
     // # Items
     Route::get('/item/create', [ItemController::class, 'create'])->name('item.create');
     Route::post('/item/store', [ItemController::class, 'store'])->name('item.store');
@@ -64,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/teachers/store',[ApprovedController::class, 'store'])->name('approved.store');
     Route::delete('/teachers/{approved}/delete',[ApprovedController::class, 'delete'])->name('approved.delete');
     Route::get('/teachers/trashed',[ApprovedController::class, 'trashed'])->name('approved.trashed');
+    Route::patch('/teachers/{approved}/restore',[ApprovedController::class, 'restore'])->name('approved.restore');
     Route::delete('/teachers/{approved}/forcedelete',[ApprovedController::class, 'forceDelete'])->name('approved.forceDelete');
     // # Mail
     Route::post('/verify-code', [VerificationController::class, 'verify']);

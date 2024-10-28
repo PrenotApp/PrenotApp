@@ -28,6 +28,9 @@ class ApprovedController extends Controller
      */
     public function store(CreateApprovedRequest $request)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403);
+        } else {
         $data = $request->validated();
 
         $data['school_id'] = Auth::user()->school_id;
@@ -35,25 +38,44 @@ class ApprovedController extends Controller
         $approved = Approved::create($data);
         $approved->save();
 
-        return redirect()->route('approved.index');
+        return redirect()->route('approved.index');}
     }
 
     public function delete(Approved $approved)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403);
+        } else {
         $approved->delete(); // soft delete
-        return redirect()->route('approved.index');
+        return redirect()->route('approved.index')->with('success', 'Docente spostato nel cestino.');}
     }
 
     public function trashed()
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403);
+        } else {
         $approveds = Approved::onlyTrashed()->get();
-        return view('approved.trashed', compact('approveds'));
+        return view('approved.trashed', compact('approveds'));}
+    }
+
+    public function restore($id)
+    {
+        if (Auth::user()->role !== 'admin') {
+            abort(403);
+        } else {
+        $approved = Approved::onlyTrashed()->where('id', $id)->firstOrFail();
+        $approved->restore();
+        return redirect()->route('approved.trashed')->with('success', 'Docente ripristinato con successo.');}
     }
 
     public function forceDelete($id)
     {
+        if (Auth::user()->role !== 'admin') {
+            abort(403);
+        } else {
         $approved = Approved::onlyTrashed()->where('id', $id)->firstOrFail();
         $approved->forceDelete();
-        return redirect()->route('approved.trashed');
+        return redirect()->route('approved.trashed')->with('success', 'Docente eliminato definitivamente.');}
     }
 }
