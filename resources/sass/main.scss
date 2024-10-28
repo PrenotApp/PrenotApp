@@ -35,22 +35,28 @@
 nav{
     background-color: $header-dark;
     height: 5rem;
-}
 
-nav *{
-    height: 100%;
-}
+    .container{
+        height: 100%;
 
-.navbar-brand{
-    color: $secondary-color;
-}
+        .navbar-brand{
+            color: $secondary-color;
+            height: 100%;
+        }
 
-.logo{
-    height: 100%;
+        .navbar-brand img{
+            height: 100%;
+        }
+
+        a{
+            margin-left: 1rem;
+        }
+    }
 }
 
 a{
-    color: $primary-light !important;
+    color: $primary-light;
+    text-decoration: none;
 }
 
 main{
@@ -101,7 +107,7 @@ main{
     }
 }
 
-[type="submit"]{
+.submit{
     width: 20rem;
     height: 4rem;
     border-radius: 12px;

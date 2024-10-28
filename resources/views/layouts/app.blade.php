@@ -20,7 +20,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="Prenotapp logo" class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="Prenotapp logo">
                     Prenot<span class="bold">APP</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -31,28 +31,26 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if(Auth::check() && Auth::user()->role == 'manager')
-                        <a class="nav-link" href="{{ route('manager.index')}}">
-                            {{('Schools')}}
-                        </a>
-
+                            <a class="nav-link" href="{{ route('manager.index')}}">
+                                {{('Schools')}}
+                            </a>
                         @endif
                         @if(Auth::check() && Auth::user()->role == 'admin')
-                        <a href="{{ route('booking.index') }}">
-                            Prenotazioni
-                        </a>
-                        <a href="{{ route('item.create') }}">
-                            Aggiungi dispositivo
-                        </a>
-                        <a href="{{ route('category.create') }}">
-                            Aggiungi categoria
-                        </a>
-                        <a href="{{ route('hour.create') }}">
-                            Aggiungi orario
-                        </a>
-                        <a href="{{ route('approved.index') }}">
-                            Gestisci docenti
-                        </a>
-
+                            <a href="{{ route('booking.index') }}">
+                                Prenotazioni
+                            </a>
+                            <a href="{{ route('item.create') }}">
+                                Aggiungi dispositivo
+                            </a>
+                            <a href="{{ route('category.create') }}">
+                                Aggiungi categoria
+                            </a>
+                            <a href="{{ route('hour.create') }}">
+                                Aggiungi orario
+                            </a>
+                            <a href="{{ route('approved.index') }}">
+                                Gestisci docenti
+                            </a>
                         @endif
                     </ul>
 
@@ -62,13 +60,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -79,8 +77,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
