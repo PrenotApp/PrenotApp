@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Manager\ManagerController as ManagerController;
-use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Manager\VerificationController as VerificationController;
 use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
@@ -22,7 +22,7 @@ use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -58,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::post('bookings/store',[BookingController::class, 'store'])->name('booking.store');
     Route::get('/bookings/availablehours', [BookingController::class, 'getAvailableHours'])->name('getAvailableHours');
     Route::delete('/bookings/{id}/delete', [BookingController::class, 'delete'])->name('booking.delete');
+    // # Mail
+    Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
 });
 
