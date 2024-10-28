@@ -3,14 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Manager\ManagerController as ManagerController;
-use App\Http\Controllers\Admin\AdminController as AdminController;
-use App\Http\Controllers\Admin\ApprovedController;
+use App\Http\Controllers\Manager\VerificationController as VerificationController;
+use App\Http\Controllers\Admin\ApprovedController as ApprovedController;
 use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
 use App\Http\Controllers\Admin\BookingController as BookingController;
-use GuzzleHttp\Middleware;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -65,5 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/teachers/{approved}/delete',[ApprovedController::class, 'delete'])->name('approved.delete');
     Route::get('/teachers/trashed',[ApprovedController::class, 'trashed'])->name('approved.trashed');
     Route::delete('/teachers/{approved}/forcedelete',[ApprovedController::class, 'forceDelete'])->name('approved.forceDelete');
+    // # Mail
+    Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
 });

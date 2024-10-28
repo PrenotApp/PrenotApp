@@ -9,8 +9,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-// import other models
+
+// your imports
 use App\Models\School;
+use Illuminate\Support\Str;
+use App\Notifications\VerifyEmailCode;
 
 class RegisterController extends Controller
 {
@@ -57,6 +60,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'code' => ['required', 'exists:schools,code'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'verification_code' => ['nullable']
         ]);
     }
 
@@ -68,7 +72,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         $school = School::where('code', $data['code'])->first();
         // check school
         if (!$school) {
@@ -93,12 +96,21 @@ class RegisterController extends Controller
 
         }
 
-        return User::create([
+        $data['verification_code'] = Str::random(6);
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'school_id' => $school->id,
             'role' => $data['role'],
             'password' => Hash::make($data['password']),
+            'verification_code' => $data['verification_code'],
         ]);
+
+        // dd($user);
+
+        $user->notify(new VerifyEmailCode('AAAAAA'));
+
+        return $user;
     }
 }
