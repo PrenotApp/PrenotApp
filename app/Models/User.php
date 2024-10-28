@@ -11,10 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 // Import other models
 use App\Models\School;
 use App\Models\Booking;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

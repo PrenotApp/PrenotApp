@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateApprovedRequest;
 use App\Models\Approved;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,17 @@ class ApprovedController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
+
+        // Trova l'utente con la stessa email dell'oggetto `Approved`
+        $user = User::where('email', $approved->email)->first();
+
+        // Se esiste un utente con la stessa email, applica una soft delete
+        if ($user) {
+            $user->delete(); // Soft delete su User
+        }
+
         $approved->delete(); // soft delete
+
         return redirect()->route('approved.index')->with('success', 'Docente spostato nel cestino.');}
     }
 
@@ -64,8 +75,19 @@ class ApprovedController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
+
         $approved = Approved::onlyTrashed()->where('id', $id)->firstOrFail();
+
         $approved->restore();
+
+        // Cerca l'utente corrispondente con la stessa email, anche se è stato cancellato logicamente
+        $user = User::onlyTrashed()->where('email', $approved->email)->first();
+
+        // Se l'utente esiste e risulta cancellato logicamente, esegui il ripristino
+        if ($user) {
+            $user->restore();
+        }
+
         return redirect()->route('approved.trashed')->with('success', 'Docente ripristinato con successo.');}
     }
 
@@ -74,8 +96,19 @@ class ApprovedController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
+
         $approved = Approved::onlyTrashed()->where('id', $id)->firstOrFail();
+
+        // Cerca l'utente con la stessa email del record Approved
+        $user = User::where('email', $approved->email)->first();
+
+        // Esegui la force delete sull'utente se esiste
+        if ($user) {
+            $user->forceDelete();
+        }
+
         $approved->forceDelete();
+
         return redirect()->route('approved.trashed')->with('success', 'Docente eliminato definitivamente.');}
     }
 }
