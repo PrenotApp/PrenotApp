@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('links')
-    @vite(['resources/js/validations/userLogin.js'])
+    @vite(['resources/js/validations/userLogin.js','resources/js/passwordToggle.js'])
 @endsection
 
 @section('content')
@@ -30,6 +30,10 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Mostra password</label>
+                </div>
             </div>
         </div>
 
