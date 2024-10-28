@@ -19,7 +19,8 @@ class ApprovedController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
-            $approveds = Approved::all();
+            $approveds = Approved::where('school_id', Auth::user()->school_id)
+            ->get();
             return view('approved.index', compact('approveds'));
         }
     }
@@ -66,7 +67,8 @@ class ApprovedController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403);
         } else {
-        $approveds = Approved::onlyTrashed()->get();
+        $approveds = Approved::onlyTrashed()->where('school_id', Auth::user()->school_id)
+        ->get();
         return view('approved.trashed', compact('approveds'));}
     }
 

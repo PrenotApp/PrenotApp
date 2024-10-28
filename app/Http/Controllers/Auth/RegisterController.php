@@ -109,7 +109,7 @@ class RegisterController extends Controller
 
         // dd($user);
 
-        $user->notify(new VerifyEmailCode('AAAAAA'));
+        //$user->notify(new VerifyEmailCode('AAAAAA'));
 
         return $user;
     }
