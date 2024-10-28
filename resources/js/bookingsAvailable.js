@@ -28,20 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     dateError.innerText = 'Non ci sono orari disponibili, prova a cambiare oggetto o data';
                 } else {
                     dateError.style.display = 'none';
+                    // Aggiungi le nuove opzioni delle ore disponibili
+                    response.data.forEach(function(hour) {
+                        const option = document.createElement('option');
+                        option.value = hour.id;
+                        option.textContent = (hour.name + ' ' + hour.start.slice(0, 5) + '-' + hour.end.slice(0, 5));
+                        hourSelect.appendChild(option);
+                    });
                 }
 
                 hourSelect.style.display = 'inline-block';
-
-                // Aggiungi le nuove opzioni delle ore disponibili
-                response.data.forEach(function(hour) {
-                    const option = document.createElement('option');
-                    option.value = hour.id;
-                    option.textContent = hour.name;
-                    hourSelect.appendChild(option);
-                });
             })
             .catch(function(error) {
-                console.error('Errore nella richiesta:', error);
+                // console.error('Errore nella richiesta:', error);
             });
         }
     }
