@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Approved;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -77,13 +78,22 @@ class RegisterController extends Controller
             throw ValidationException::withMessages(['code' => 'Codice scuola non valido.']);
         }
 
-        $data['role'] = 'common';
+        $data['role'] = '';
         $userCount = User::where('school_id', $school->id)->count(); // user in that school
 
         if (User::count() === 0) { // user in the db
             $data['role'] = 'manager';
         } else if ($userCount === 0) { // user in the school
             $data['role'] = 'admin';
+        } else {
+            $approved = Approved::where('email', $data['email'])->where('school_id', $school->id)->first();
+
+            if(!$approved){
+                throw ValidationException::withMessages(['email' => 'Docente non abilitato, contatta il tuo admin.']);
+            } else {
+                $data['role'] = 'common';
+            }
+
         }
 
         $data['verification_code'] = Str::random(6);
