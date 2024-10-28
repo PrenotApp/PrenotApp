@@ -46,7 +46,7 @@ class ManagerController extends Controller
     public function deleteSchool(School $school)
     {
         $school->delete(); // soft delete
-        return redirect()->route('manager.index');
+        return redirect()->route('manager.index')->with('success', 'Scuola spostata nel cestino.');;
     }
 
     public function trashedSchools()
@@ -55,10 +55,20 @@ class ManagerController extends Controller
         return view('manager.trashed', compact('schools'));
     }
 
+    public function restore($id)
+    {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
+        $school = School::onlyTrashed()->where('id', $id)->firstOrFail();
+        $school->restore();
+        return redirect()->route('manager.trashed')->with('success', 'Scuola ripristinata con successo.');}
+    }
+
     public function forceDeleteSchool($id)
     {
         $school = School::onlyTrashed()->where('id', $id)->firstOrFail();
         $school->forceDelete();
-        return redirect()->route('manager.trashed');
+        return redirect()->route('manager.trashed')->with('success', 'Scuola eliminata definitivamente.');;
     }
 }
