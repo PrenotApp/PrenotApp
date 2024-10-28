@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('links')
-    @vite(['resources/js/validations/userRegistration.js'])
+    @vite(['resources/js/validations/userRegistration.js','resources/js/passwordToggle.js', 'resources/js/passwordConfirmationToggle.js']);
 @endsection
 
 @section('content')
@@ -77,7 +77,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" name="password" type="password" autocomplete="new-password">
+                                <input id="password" name="password" type="password" autocomplete="new-password" required>
 
                                 <p class="error"></p>
 
@@ -86,6 +86,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
+                                <!-- Checkbox per mostrare/nascondere la password -->
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" id="showPassword">
+                                    <label class="form-check-label" for="showPassword">Mostra password</label>
+                                </div>
+
                             </div>
                         </div>
 
@@ -96,13 +103,19 @@
                                 <input id="password-confirm" name="password_confirmation" type="password" autocomplete="new-password">
 
                                 <p class="error"></p>
+
+                                <!-- Checkbox per mostrare/nascondere la password -->
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" class="form-check-input" id="showConfirmationPassword">
+                                    <label class="form-check-label" for="showPassword">Mostra password</label>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Registrati') }}
                                 </button>
                             </div>
                         </div>
