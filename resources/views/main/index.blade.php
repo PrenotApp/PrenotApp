@@ -31,4 +31,8 @@
             @endforeach
         </ul>
     @endforeach
+
+    @foreach($racks as $rack)
+        <h2>{{ $rack->name }} <a href="{{ route('rack.edit',$rack) }}">Modifica</a><a href="{{ route('rack.booking',$rack->id) }}">Prenota</a></h2>
+    @endforeach
 @endsection

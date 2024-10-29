@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verifica che i campi siano selezionati
         if (itemId && date) {
             // Fai una richiesta GET usando Axios
-            axios.get('/bookings/availablehours', {
+            axios.get('/prenotazioni/oredisponibili', {
                 params: {
                     item_id: itemId,
                     date: date

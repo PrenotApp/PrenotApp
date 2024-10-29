@@ -74,6 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/gruppi/crea',[RackController::class, 'store'])->name('rack.store');
     Route::get('/gruppi/{gruppo}/modifica',[RackController::class, 'edit'])->name('rack.edit');
     Route::put('/gruppi/{gruppo}/aggiorna',[RackController::class, 'update'])->name('rack.update');
+    Route::get('/gruppi/{gruppo}/prenota',[RackController::class, 'booking'])->name('rack.booking');
+    Route::get('/gruppi/disponibili', [RackController::class, 'getAvailableItems'])->name('rack.available');
+    Route::post('/gruppi/{gruppo}/prenota',[RackController::class, 'bookAvailable'])->name('rack.book');
     // # Mail
     Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\School;
 use Illuminate\Support\Facades\DB;
+use App\Models\Rack;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,8 @@ class HomeController extends Controller
             })
             ->toArray();
 
-        return view('main.index', compact('user','groupedItems'));
+        $racks = Rack::where('school_id', $user->school_id)->get();
+
+        return view('main.index', compact('user','groupedItems','racks'));
     }
 }
