@@ -33,7 +33,12 @@ class ItemController extends Controller
     {
         $categories = Category::where('school_id', Auth::user()->school_id)
             ->get();
-        return view('items.create', compact('categories'));
+        $racks = Rack::where('school_id', Auth::user()->school_id)->get();
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
+            return view('items.create', compact('categories','racks'));
+        }
     }
 
     public function store(Request $request)
@@ -68,14 +73,14 @@ class ItemController extends Controller
         $school = School::where('id', $user->school_id)->firstOrFail();
         $item = Item::findOrFail($id);
         $racks = Rack::where('school_id', $user->school_id)->get();
-
-        if ($item->school_id !== $school->id) {
-            abort(403);
-        }
-
         $categories = Category::where('school_id', Auth::user()->school_id)
             ->get();
-        return view('items.edit', compact('categories', 'item','racks'));
+
+        if ($item->school_id !== $school->id || $user->role === 'common') {
+            abort(403);
+        } else {
+            return view('items.edit', compact('categories', 'item','racks'));
+        }
     }
 
     public function update(Request $request, $id)
