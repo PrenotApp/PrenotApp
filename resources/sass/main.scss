@@ -1,3 +1,9 @@
+// Variables
+@use 'variables' as *;
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
 // Fonts
 @font-face {
     font-family: 'Montserrat';
@@ -12,12 +18,6 @@
     font-weight: 700;
     font-style: normal;
 }
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import 'bootstrap/scss/bootstrap';
 
 *{
     font-family: 'Montserrat' !important;
@@ -101,9 +101,13 @@ main{
             outline: none;
         }
     }
+}
+.error{
+    color: $error;
+    display: none;
 
-    .error{
-        color: $error;
+    &.on{
+        display: block;
     }
 }
 
@@ -118,4 +122,12 @@ main{
 
 .centered{
     justify-self: center;
+}
+
+.secondary-outline{
+    border: 1px solid $secondary-color;
+
+    &:active{
+    border: 1px solid blue;
+    }
 }

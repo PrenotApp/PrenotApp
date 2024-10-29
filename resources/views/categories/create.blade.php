@@ -1,14 +1,26 @@
 @extends('layouts.app')
 
+@section('links')
+    @vite(['resources/js/validations/categoryCreate.js'])
+@endsection
+
 @section('content')
-    <form action="{{ route('category.store') }}" method="POST">
+    <form action="{{ route('category.store') }}" method="POST" id="myForm">
         @csrf
 
-        <label for="icon">Icon</label>
-        <input type="text" name="icon" id="icon">
+        <div>
+            @foreach($icons as $index => $icon)
+            <input class="btn-check" type="radio" id="{{ 'icon' . ($index + 1) }}" name="icon" value="{{ $icon }}" index="{{ $index }}">
+            <label  class="btn secondary-outline" for="{{ 'icon' . ($index + 1) }}">
+                <i class="{{ $icon }}"></i>
+            </label>
+            @endforeach
+        </div>
 
         <label for="name">Nome</label>
         <input type="text" name="name" id="name">
+
+        <p class="error"></p>
 
         <button type="submit">Crea category</button>
     </form>

@@ -16,7 +16,7 @@
         </a>
     @endif
     @foreach ($groupedItems as $category => $items)
-        <h2>{{ $category }}</h2>
+        <h2><i class="{{ $items[0]->category_icon }}"></i>{{ $category }}</h2>
         <ul>
             @foreach ($items as $item)
                 <li>

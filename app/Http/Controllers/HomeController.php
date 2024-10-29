@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         $items = DB::table('items')
             ->join('categories', 'items.category_id', '=', 'categories.id')
-            ->select('categories.name as category_name', 'items.*')
+            ->select('categories.name as category_name', 'categories.icon as category_icon', 'items.*')
             ->where('items.school_id', $school->id)
             ->whereNull('items.deleted_at')
             ->orderBy('category_id')
