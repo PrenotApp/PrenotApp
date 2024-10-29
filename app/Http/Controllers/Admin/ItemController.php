@@ -11,6 +11,7 @@ use App\Models\Item;
 use App\Models\School;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
+use App\Models\Rack;
 
 class ItemController extends Controller
 {
@@ -47,9 +48,12 @@ class ItemController extends Controller
                 }),
             ],
             'category_id' => 'required',
+            'rack_id' => 'nullable|exists:racks,id'
         ], [
             'name.unique' => 'Esiste già un oggetto con questo nome',
         ]);
+
+        $data['rack_id'] = $request->rack_id ? $request->rack_id : null; // se e' null o '', metti null
 
         $data['school_id'] = $schoolId;
 
@@ -63,6 +67,7 @@ class ItemController extends Controller
         $user = Auth::user();
         $school = School::where('id', $user->school_id)->firstOrFail();
         $item = Item::findOrFail($id);
+        $racks = Rack::where('school_id', $user->school_id)->get();
 
         if ($item->school_id !== $school->id) {
             abort(403);
@@ -70,7 +75,7 @@ class ItemController extends Controller
 
         $categories = Category::where('school_id', Auth::user()->school_id)
             ->get();
-        return view('items.edit', compact('categories', 'item'));
+        return view('items.edit', compact('categories', 'item','racks'));
     }
 
     public function update(Request $request, $id)
@@ -80,7 +85,10 @@ class ItemController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
+            'rack_id' => 'nullable|exists:racks,id'
         ]);
+
+        $validatedData['rack_id'] = $request->rack_id ? $request->rack_id : null; // se e' null o '', metti null
 
         $item->update($validatedData);
 
