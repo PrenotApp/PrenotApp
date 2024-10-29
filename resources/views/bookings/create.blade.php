@@ -8,7 +8,7 @@
     <form action="{{ route('booking.store') }}" method="POST" id="myForm">
         @csrf
 
-        <label for="item_id">Item</label>
+        <label for="item_id">Dispositivo</label>
         <select name="item_id" id="item_id">
             @foreach ($items as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>

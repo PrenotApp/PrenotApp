@@ -10,6 +10,6 @@
         <label for="name">Nome</label>
         <input type="text" name="name" id="name">
 
-        <button type="submit">Crea category</button>
+        <button type="submit">Crea categoria</button>
     </form>
 @endsection

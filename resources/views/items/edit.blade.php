@@ -6,7 +6,7 @@
             @csrf
             @method('PUT')
 
-            <label for="category_id">Category</label>
+            <label for="category_id">Categoria</label>
             <select name="category_id" id="category_id">
                 @foreach ($categories as $category)
                 <option value="{{ $category->id }}"
@@ -23,6 +23,6 @@
             <button type="submit">Modifica</button>
         </form>
     @else
-        <h1>solo gli admin possono modificare</h1>
+        <h1>Solo gli admin possono modificare</h1>
     @endif
 @endsection
