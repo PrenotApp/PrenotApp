@@ -72,6 +72,8 @@ Route::middleware('auth')->group(function () {
     // # Racks
     Route::get('/gruppi/crea',[RackController::class, 'create'])->name('rack.create');
     Route::post('/gruppi/crea',[RackController::class, 'store'])->name('rack.store');
+    Route::get('/gruppi/{gruppo}/modifica',[RackController::class, 'edit'])->name('rack.edit');
+    Route::put('/gruppi/{gruppo}/aggiorna',[RackController::class, 'update'])->name('rack.update');
     // # Mail
     Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);

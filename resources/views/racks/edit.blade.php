@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('rack.store') }}" method="POST" id="myForm">
+    <form action="{{ route('rack.update',$rack->id) }}" method="POST" id="myForm">
+        @method('PUT')
         @csrf
 
 
         <label for="name">Nome</label>
-        <input type="text" name="name" id="name" placeholder="es: Gruppo A">
+        <input type="text" name="name" id="name" placeholder="es: Gruppo A" value="{{ old('name', $rack->name) }}">
 
         @error('name')
             <span>

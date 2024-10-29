@@ -13,7 +13,11 @@ class RackController extends Controller
 {
     public function create()
     {
-        return view('racks.create');
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
+            return view('racks.create');
+        }
     }
 
     public function store(Request $request)
@@ -27,6 +31,29 @@ class RackController extends Controller
         $data['school_id'] = $schoolId;
 
         Rack::create($data);
+        return redirect()->route('home');
+    }
+
+    public function edit($id)
+    {
+        $rack = Rack::findOrFail($id);
+        $user = Auth::user();
+        if ($user->role === 'common' || $user->school_id != $rack->school_id) {
+            abort(403);
+        } else {
+            return view('racks.edit',compact('rack'));
+        }
+    }
+
+    public function update($id, Request $request)
+    {
+        $rack = Rack::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $rack->update($data);
+
         return redirect()->route('home');
     }
 }
