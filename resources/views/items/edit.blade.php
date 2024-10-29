@@ -20,6 +20,14 @@
                 <label for="name">Nome</label>
             <input type="text" name="name" id="name" value="{{ old('name', $item->name) }}">
 
+            <p>Vuoi aggiungere il tuo item a un gruppo?</p>
+            <select name="rack_id" id="rack_id">
+                <option value="" selected>Nessuno</option>
+                @foreach($racks as $rack)
+                <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+                @endforeach
+            </select>
+
             <button type="submit">Modifica</button>
         </form>
     @else

@@ -24,6 +24,14 @@
             </span>
         @enderror
 
+        <p>Vuoi aggiungere il tuo item a un gruppo?</p>
+        <select name="rack_id" id="rack_id">
+            <option value="" selected>Nessuno</option>
+            @foreach($racks as $rack)
+            <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+            @endforeach
+        </select>
+
         <button type="submit">Crea dispositivo</button>
     </form>
 @endsection

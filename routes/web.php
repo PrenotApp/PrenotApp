@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
 use App\Http\Controllers\Admin\BookingController as BookingController;
+use App\Http\Controllers\Admin\RackController as RackController;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 use GuzzleHttp\Middleware;
 use Illuminate\Database\Capsule\Manager;
@@ -68,6 +69,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/docenti/cestino',[ApprovedController::class, 'trashed'])->name('approved.trashed');
     Route::patch('/docenti/{approved}/ripristina',[ApprovedController::class, 'restore'])->name('approved.restore');
     Route::delete('/docenti/{approved}/forzaeliminazione',[ApprovedController::class, 'forceDelete'])->name('approved.forceDelete');
+    // # Racks
+    Route::get('/gruppi/crea',[RackController::class, 'create'])->name('rack.create');
+    Route::post('/gruppi/crea',[RackController::class, 'store'])->name('rack.store');
+    Route::get('/gruppi/{gruppo}/modifica',[RackController::class, 'edit'])->name('rack.edit');
+    Route::put('/gruppi/{gruppo}/aggiorna',[RackController::class, 'update'])->name('rack.update');
+    Route::get('/gruppi/{gruppo}/prenota',[RackController::class, 'booking'])->name('rack.booking');
+    Route::get('/gruppi/disponibili', [RackController::class, 'getAvailableItems'])->name('rack.available');
+    Route::post('/gruppi/{gruppo}/prenota',[RackController::class, 'bookAvailable'])->name('rack.book');
     // # Mail
     Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
