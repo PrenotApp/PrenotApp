@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
-
-<a href="{{ route('approved.trashed') }}">
-    Cestino
-</a>
+    <a href="{{ route('approved.trashed') }}">
+        Cestino
+    </a>
 
     <form action="{{ route('approved.store') }}" method="POST">
         @csrf
@@ -22,13 +21,13 @@
         <button type="submit">Aggiungi docente</button>
     </form>
 
-        @foreach($approveds as $approved)
-                <h2>{{ $approved->email }} </h2>
-                <form action="{{ route('approved.delete', $approved) }}" method="POST">
-                    @method('DELETE')
-                    @csrf
+    @foreach($approveds as $approved)
+            <h2>{{ $approved->email }} </h2>
+            <form action="{{ route('approved.delete', $approved) }}" method="POST">
+                @method('DELETE')
+                @csrf
 
-                    <button>Elimina</button>
-                </form>
-        @endforeach
+                <button>Elimina</button>
+            </form>
+    @endforeach
 @endsection

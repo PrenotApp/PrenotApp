@@ -14,13 +14,16 @@ class CategoryController extends Controller
 {
     public function create()
     {
-        return view('categories.create');
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
+            return view('categories.create');
+        }
     }
 
     public function store(CreateCategoryRequest $request)
     {
         $data = $request->validated();
-
 
         $user = Auth::user();
         $data['school_id'] = $user->school_id;

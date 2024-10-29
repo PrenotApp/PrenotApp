@@ -31,11 +31,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if(Auth::check() && Auth::user()->role == 'manager')
-                            <a class="nav-link" href="{{ route('manager.index')}}">
+                            <a href="{{ route('manager.index')}}">
                                 {{('Schools')}}
                             </a>
                         @endif
-                        @if(Auth::check() && Auth::user()->role == 'admin')
+                        @if(Auth::check() && Auth::user()->role !== 'common')
                             <a href="{{ route('booking.index') }}">
                                 Prenotazioni
                             </a>
@@ -45,11 +45,11 @@
                             <a href="{{ route('category.create') }}">
                                 Aggiungi categoria
                             </a>
-                            <a href="{{ route('hour.create') }}">
-                                Aggiungi orario
+                            <a href="{{ route('hour.index') }}">
+                                Orari
                             </a>
                             <a href="{{ route('approved.index') }}">
-                                Gestisci docenti
+                                Docenti
                             </a>
                         @endif
                     </ul>
@@ -71,12 +71,12 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

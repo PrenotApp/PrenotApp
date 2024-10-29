@@ -28,7 +28,7 @@ class HourController extends Controller
 
     public function create()
     {
-        if (Auth::user()->role !== 'admin'){
+        if (Auth::user()->role === 'common'){
             abort(403);
         }
         return view('hours.create');
@@ -63,7 +63,7 @@ class HourController extends Controller
     public function edit($id)
     {
         $hour = Hour::findOrFail($id);
-        if (Auth::user()->role !== 'admin' || Auth::user()->school_id !== $hour->school_id){
+        if (Auth::user()->role === 'common' || Auth::user()->school_id !== $hour->school_id){
             abort(403);
         }
         $hour['start'] = date('H:i', strtotime($hour['start']));
