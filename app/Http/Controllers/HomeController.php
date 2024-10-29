@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\School;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
+
 class HomeController extends Controller
 {
     /**
@@ -44,6 +47,9 @@ class HomeController extends Controller
                 return $items;
             })
             ->toArray();
+
+        // Mail::to('giordanofabrizi@gmail.com')->send(new VerifyEmail('ABABAB'));
+        Mail::mailer('mailersend')->to('giordanofabrizi@gmail.com')->send(new VerifyEmail('ABABAB'));
 
         return view('main.index', compact('user','groupedItems'));
     }

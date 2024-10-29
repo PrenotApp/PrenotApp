@@ -13,7 +13,8 @@ use Illuminate\Validation\ValidationException;
 // your imports
 use App\Models\School;
 use Illuminate\Support\Str;
-use App\Notifications\VerifyEmailCode;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -107,9 +108,7 @@ class RegisterController extends Controller
             'verification_code' => $data['verification_code'],
         ]);
 
-        // dd($user);
-
-        //$user->notify(new VerifyEmailCode('AAAAAA'));
+        Mail::to($user->email)->send(new VerifyEmail($data['verification_code']));
 
         return $user;
     }
