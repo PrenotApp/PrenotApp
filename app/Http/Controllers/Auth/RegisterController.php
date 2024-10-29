@@ -99,7 +99,7 @@ class RegisterController extends Controller
         $data['verification_code'] = Str::random(6);
 
         $user = User::create([
-            'name' => $data['name'],
+            'name' => Str::title($data['name']), // Ogni parola con la maiuscola
             'email' => $data['email'],
             'school_id' => $school->id,
             'role' => $data['role'],
