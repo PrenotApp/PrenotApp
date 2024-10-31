@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Config;
+use App\Models\Rack;
 
 
 class HomeController extends Controller
@@ -49,6 +50,8 @@ class HomeController extends Controller
             })
             ->toArray();
 
-        return view('main.index', compact('user','groupedItems'));
+        $racks = Rack::where('school_id', $user->school_id)->get();
+
+        return view('main.index', compact('user','groupedItems','racks'));
     }
 }

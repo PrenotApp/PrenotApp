@@ -19,8 +19,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="Prenotapp logo">
+                <a class="navbar-brand" href="{{ Auth::check() ? (Auth::user()->role == 'manager' ? url('/scuole') : url('/')) : '' }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="Prenotapp logo" class="logo">
                     Prenot<span class="bold">APP</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,6 +51,9 @@
                             <a href="{{ route('approved.index') }}">
                                 Docenti
                             </a>
+                          <a href="{{ route('rack.create') }}">
+                              Aggiungi gruppo
+                          </a>
                         @endif
                     </ul>
 

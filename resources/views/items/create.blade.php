@@ -8,7 +8,7 @@
     <form action="{{ route('item.store') }}" method="POST" id="myForm">
         @csrf
 
-        <label for="category_id">Category</label>
+        <label for="category_id">Categoria</label>
         <select name="category_id" id="category_id">
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -24,6 +24,14 @@
             </span>
         @enderror
 
-        <button type="submit">Crea item</button>
+        <p>Vuoi aggiungere il tuo item a un gruppo?</p>
+        <select name="rack_id" id="rack_id">
+            <option value="" selected>Nessuno</option>
+            @foreach($racks as $rack)
+            <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+            @endforeach
+        </select>
+
+        <button type="submit">Crea dispositivo</button>
     </form>
 @endsection
