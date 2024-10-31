@@ -1,3 +1,9 @@
+// Variables
+@use 'variables' as *;
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
 // Fonts
 @font-face {
     font-family: 'Montserrat';
@@ -12,12 +18,6 @@
     font-weight: 700;
     font-style: normal;
 }
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import 'bootstrap/scss/bootstrap';
 
 *{
     font-family: 'Montserrat' !important;
@@ -35,22 +35,28 @@
 nav{
     background-color: $header-dark;
     height: 5rem;
-}
 
-nav *{
-    height: 100%;
-}
+    .container{
+        height: 100%;
 
-.navbar-brand{
-    color: $secondary-color;
-}
+        .navbar-brand{
+            color: $secondary-color;
+            height: 100%;
+        }
 
-.logo{
-    height: 100%;
+        .navbar-brand img{
+            height: 100%;
+        }
+
+        a{
+            margin-left: 1rem;
+        }
+    }
 }
 
 a{
-    color: $primary-light !important;
+    color: $primary-light;
+    text-decoration: none;
 }
 
 main{
@@ -95,13 +101,17 @@ main{
             outline: none;
         }
     }
+}
+.error{
+    color: $error;
+    display: none;
 
-    .error{
-        color: $error;
+    &.on{
+        display: block;
     }
 }
 
-[type="submit"]{
+.submit{
     width: 20rem;
     height: 4rem;
     border-radius: 12px;
@@ -112,4 +122,12 @@ main{
 
 .centered{
     justify-self: center;
+}
+
+.secondary-outline{
+    border: 1px solid $secondary-color;
+
+    &:active{
+    border: 1px solid blue;
+    }
 }

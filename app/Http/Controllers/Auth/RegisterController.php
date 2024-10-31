@@ -13,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 // your imports
 use App\Models\School;
 use Illuminate\Support\Str;
-use App\Notifications\VerifyEmailCode;
 
 class RegisterController extends Controller
 {
@@ -96,7 +95,7 @@ class RegisterController extends Controller
 
         }
 
-        $data['verification_code'] = Str::random(6);
+        // $data['verification_code'] = Str::random(6);
 
         $user = User::create([
             'name' => Str::title($data['name']), // Ogni parola con la maiuscola
@@ -104,12 +103,10 @@ class RegisterController extends Controller
             'school_id' => $school->id,
             'role' => $data['role'],
             'password' => Hash::make($data['password']),
-            'verification_code' => $data['verification_code'],
+            // 'verification_code' => $data['verification_code'],
         ]);
 
-        // dd($user);
-
-        //$user->notify(new VerifyEmailCode('AAAAAA'));
+        // Mail::to($user->email)->send(new VerifyEmail($data['verification_code']));
 
         return $user;
     }

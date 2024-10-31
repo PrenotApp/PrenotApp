@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
 use App\Http\Controllers\Admin\BookingController as BookingController;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Admin\RackController as RackController;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 use GuzzleHttp\Middleware;
@@ -78,6 +79,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/gruppi/disponibili', [RackController::class, 'getAvailableItems'])->name('rack.available');
     Route::post('/gruppi/{gruppo}/prenota',[RackController::class, 'bookAvailable'])->name('rack.book');
     // # Mail
-    Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
 });

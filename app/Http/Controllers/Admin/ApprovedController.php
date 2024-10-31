@@ -16,7 +16,7 @@ class ApprovedController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
             $approveds = Approved::where('school_id', Auth::user()->school_id)
@@ -30,7 +30,7 @@ class ApprovedController extends Controller
      */
     public function store(CreateApprovedRequest $request)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
         $data = $request->validated();
@@ -45,7 +45,7 @@ class ApprovedController extends Controller
 
     public function delete(Approved $approved)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
 
@@ -64,7 +64,7 @@ class ApprovedController extends Controller
 
     public function trashed()
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
         $approveds = Approved::onlyTrashed()->where('school_id', Auth::user()->school_id)
@@ -74,7 +74,7 @@ class ApprovedController extends Controller
 
     public function restore($id)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
 
@@ -95,7 +95,7 @@ class ApprovedController extends Controller
 
     public function forceDelete($id)
     {
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role === 'common') {
             abort(403);
         } else {
 

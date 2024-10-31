@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(Auth::user()->role == 'admin')
+    @if(Auth::user()->role !== 'common')
         <form action="{{ route('item.update', $item->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -31,6 +31,6 @@
             <button type="submit">Modifica</button>
         </form>
     @else
-        <h1>Solo gli admin possono modificare</h1>
+        {{@abort(403)}}
     @endif
 @endsection

@@ -31,31 +31,29 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if(Auth::check() && Auth::user()->role == 'manager')
-                        <a class="nav-link" href="{{ route('manager.index')}}">
-                            {{('Schools')}}
-                        </a>
-
+                            <a href="{{ route('manager.index')}}">
+                                {{('Schools')}}
+                            </a>
                         @endif
-                        @if(Auth::check() && Auth::user()->role == 'admin')
-                        <a href="{{ route('booking.index') }}">
-                            Prenotazioni
-                        </a>
-                        <a href="{{ route('item.create') }}">
-                            Aggiungi dispositivo
-                        </a>
-                        <a href="{{ route('category.create') }}">
-                            Aggiungi categoria
-                        </a>
-                        <a href="{{ route('hour.create') }}">
-                            Aggiungi orario
-                        </a>
-                        <a href="{{ route('approved.index') }}">
-                            Gestisci docenti
-                        </a>
-                        <a href="{{ route('rack.create') }}">
-                            Aggiungi gruppo
-                        </a>
-
+                        @if(Auth::check() && Auth::user()->role !== 'common')
+                            <a href="{{ route('booking.index') }}">
+                                Prenotazioni
+                            </a>
+                            <a href="{{ route('item.create') }}">
+                                Aggiungi dispositivo
+                            </a>
+                            <a href="{{ route('category.create') }}">
+                                Aggiungi categoria
+                            </a>
+                            <a href="{{ route('hour.index') }}">
+                                Orari
+                            </a>
+                            <a href="{{ route('approved.index') }}">
+                                Docenti
+                            </a>
+                          <a href="{{ route('rack.create') }}">
+                              Aggiungi gruppo
+                          </a>
                         @endif
                     </ul>
 
@@ -65,26 +63,26 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entra') }}</a>
+                                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrati') }}</a>
+                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Esci') }}
+                                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

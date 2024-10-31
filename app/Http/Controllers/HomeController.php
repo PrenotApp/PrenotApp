@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\School;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
+use Illuminate\Support\Facades\Config;
 use App\Models\Rack;
+
 
 class HomeController extends Controller
 {
@@ -34,7 +38,7 @@ class HomeController extends Controller
 
         $items = DB::table('items')
             ->join('categories', 'items.category_id', '=', 'categories.id')
-            ->select('categories.name as category_name', 'items.*')
+            ->select('categories.name as category_name', 'categories.icon as category_icon', 'items.*')
             ->where('items.school_id', $school->id)
             ->whereNull('items.deleted_at')
             ->orderBy('category_id')

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::user()->role === 'admin')
+    @if (Auth::user()->role !== 'common')
         <a href="{{ route('hour.create') }}">Crea orario</a>
     @endif
     @foreach($hours as $hour)

@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <button type="submit">Invia il link</button>
+            <button class="submit" type="submit">Invia il link</button>
         </form>
     </div>
 @endsection

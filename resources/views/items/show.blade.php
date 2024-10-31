@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>{{ $item->name }}</h1>
-    @if (Auth::user()->role == 'admin')
+    @if (Auth::user()->role !== 'common')
         <form action="{{ route('item.delete', $item->id) }}" method="POST">
             @csrf
             @method('DELETE')

@@ -38,11 +38,11 @@
         </div>
 
         <div>
-            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
             <label for="remember">Ricordami</label>
         </div>
 
-        <button type="submit">Login</button>
+        <button class="submit" type="submit">Login</button>
 
         <div>
             @if (Route::has('password.request'))

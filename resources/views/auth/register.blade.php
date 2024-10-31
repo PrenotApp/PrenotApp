@@ -73,8 +73,12 @@
                 <label class="form-check-label" for="showPassword">Mostra password</label>
             </div>
                 <div>
-                    <button type="submit">Registrati</button>
+                    <button class="submit" type="submit">Registrati</button>
                 </div>
+
+                @if($errors->any())
+                    {{ implode('', $errors->all('<div>:message</div>')) }}
+                @endif
         </form>
     </div>
 @endsection

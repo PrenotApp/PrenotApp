@@ -56,7 +56,7 @@ class BookingController extends Controller
         $user = Auth::user();
 
         // Se l'utente è un admin, visualizza tutte le prenotazioni della scuola
-        if ($user->role === 'admin') {
+        if ($user->role !== 'common') {
             return Booking::where('school_id', $user->school_id);
         }
 
