@@ -22,6 +22,6 @@
 
         <p class="error"></p>
 
-        <button type="submit">Crea category</button>
+        <button type="submit">Crea categoria</button>
     </form>
 @endsection

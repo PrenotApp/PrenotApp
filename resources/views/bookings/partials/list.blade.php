@@ -7,7 +7,7 @@
                 <th>Data</th>
                 <th>Ora</th>
                 <th>Utente</th>
-                <th>Item</th>
+                <th>Dispositivo</th>
             </tr>
         </thead>
         <tbody>

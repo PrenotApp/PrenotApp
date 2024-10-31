@@ -6,7 +6,7 @@
             @csrf
             @method('PUT')
 
-            <label for="category_id">Category</label>
+            <label for="category_id">Categoria</label>
             <select name="category_id" id="category_id">
                 @foreach ($categories as $category)
                 <option value="{{ $category->id }}"
@@ -19,6 +19,14 @@
 
                 <label for="name">Nome</label>
             <input type="text" name="name" id="name" value="{{ old('name', $item->name) }}">
+
+            <p>Vuoi aggiungere il tuo item a un gruppo?</p>
+            <select name="rack_id" id="rack_id">
+                <option value="" selected>Nessuno</option>
+                @foreach($racks as $rack)
+                <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+                @endforeach
+            </select>
 
             <button type="submit">Modifica</button>
         </form>
