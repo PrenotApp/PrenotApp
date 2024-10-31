@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ItemController as ItemController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\HourController as HourController;
 use App\Http\Controllers\Admin\BookingController as BookingController;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
 use GuzzleHttp\Middleware;
 use Illuminate\Database\Capsule\Manager;
@@ -71,4 +72,10 @@ Route::middleware('auth')->group(function () {
     // # Mail
     Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
+    Route::get('/test-env', function () {
+        return [
+            'API Key' => env('MAILERSEND_API_KEY'),
+            'Config Key' => Config::get('mail.mailers.mailersend.api_key'),
+        ];
+    });
 });
