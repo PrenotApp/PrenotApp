@@ -75,6 +75,10 @@
                 <div>
                     <button class="submit" type="submit">Registrati</button>
                 </div>
+
+                @if($errors->any())
+                    {{ implode('', $errors->all('<div>:message</div>')) }}
+                @endif
         </form>
     </div>
 @endsection

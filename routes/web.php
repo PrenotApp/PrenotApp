@@ -70,12 +70,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/teachers/{approved}/restore',[ApprovedController::class, 'restore'])->name('approved.restore');
     Route::delete('/teachers/{approved}/forcedelete',[ApprovedController::class, 'forceDelete'])->name('approved.forceDelete');
     // # Mail
-    Route::post('/verify-code', [VerificationController::class, 'verify']);
     // Route::resource('provaroute', ManagerController::class);
-    Route::get('/test-env', function () {
-        return [
-            'API Key' => env('MAILERSEND_API_KEY'),
-            'Config Key' => Config::get('mail.mailers.mailersend.api_key'),
-        ];
-    });
+
 });
