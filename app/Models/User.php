@@ -13,7 +13,7 @@ use App\Models\School;
 use App\Models\Booking;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     // use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     use HasApiTokens, HasFactory, SoftDeletes;
