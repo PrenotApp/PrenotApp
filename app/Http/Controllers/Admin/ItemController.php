@@ -31,6 +31,9 @@ class ItemController extends Controller
 
     public function create()
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $categories = Category::where('school_id', Auth::user()->school_id)
             ->get();
         $racks = Rack::where('school_id', Auth::user()->school_id)->get();
@@ -39,10 +42,14 @@ class ItemController extends Controller
         } else {
             return view('items.create', compact('categories','racks'));
         }
+        }
     }
 
     public function store(Request $request)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $schoolId = Auth::user()->school_id;
 
         $data = $request->validate([
@@ -65,10 +72,14 @@ class ItemController extends Controller
         $item = Item::create($data);
         $item->save();
         return redirect()->route('home')->with('success', 'Dispositivo creato con successo.');
+        }
     }
 
     public function edit($id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $user = Auth::user();
         $school = School::where('id', $user->school_id)->firstOrFail();
         $item = Item::findOrFail($id);
@@ -81,10 +92,14 @@ class ItemController extends Controller
         } else {
             return view('items.edit', compact('categories', 'item','racks'));
         }
+        }
     }
 
     public function update(Request $request, $id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $item = Item::findOrFail($id);
 
         $validatedData = $request->validate([
@@ -98,13 +113,18 @@ class ItemController extends Controller
         $item->update($validatedData);
 
         return redirect()->route('home')->with('success', 'Dispositivo aggiornato con successo!');
+        }
     }
 
     public function delete($id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $item = Item::findOrFail($id);
         $item->delete();
 
         return redirect()->route('home')->with('success', 'Dispositivo eliminato con successo.');
+        }
     }
 }
