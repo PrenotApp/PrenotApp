@@ -35,25 +35,21 @@
                                 {{('Schools')}}
                             </a>
                         @endif
+                        @if (Auth::check())
+                        <a href="{{ route('home') }}">
+                            Home
+                        </a>
+                        <a href="{{ route('booking.index') }}">
+                            Prenotazioni
+                        </a>
+                        @endif
                         @if(Auth::check() && Auth::user()->role !== 'common')
-                            <a href="{{ route('booking.index') }}">
-                                Prenotazioni
-                            </a>
-                            <a href="{{ route('item.create') }}">
-                                Aggiungi dispositivo
-                            </a>
-                            <a href="{{ route('category.create') }}">
-                                Aggiungi categoria
-                            </a>
                             <a href="{{ route('hour.index') }}">
-                                Orari
+                                Orario
                             </a>
                             <a href="{{ route('approved.index') }}">
                                 Docenti
                             </a>
-                          <a href="{{ route('rack.create') }}">
-                              Aggiungi gruppo
-                          </a>
                         @endif
                     </ul>
 

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
+
 @section('content')
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
     @if (Auth::user()->role !== 'common')
         <a href="{{ route('hour.create') }}">Crea orario</a>
     @endif

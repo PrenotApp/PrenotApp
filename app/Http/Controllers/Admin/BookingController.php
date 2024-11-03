@@ -72,7 +72,7 @@ class BookingController extends Controller
     public function delete($id){
         $booking = Booking::findOrFail($id);
         $booking->delete();
-        return redirect()->route('booking.index');
+        return redirect()->route('booking.index')->with('success', 'Prenotazione eliminata con successo!');
     }
 
     public function create(){

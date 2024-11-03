@@ -25,6 +25,9 @@ class RackController extends Controller
 
     public function store(Request $request)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $schoolId = Auth::user()->school_id;
 
         $data = $request->validate([
@@ -34,11 +37,15 @@ class RackController extends Controller
         $data['school_id'] = $schoolId;
 
         Rack::create($data);
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Gruppo creato con successo.');
+        }
     }
 
     public function edit($id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $rack = Rack::findOrFail($id);
         $user = Auth::user();
         if ($user->role === 'common' || $user->school_id != $rack->school_id) {
@@ -46,10 +53,14 @@ class RackController extends Controller
         } else {
             return view('racks.edit',compact('rack'));
         }
+        }
     }
 
     public function update($id, Request $request)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $rack = Rack::findOrFail($id);
         $data = $request->validate([
             'name' => 'required',
@@ -57,7 +68,8 @@ class RackController extends Controller
 
         $rack->update($data);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Gruppo modificato con successo.');
+        }
     }
 
     public function booking($id)
@@ -108,6 +120,10 @@ class RackController extends Controller
         $date = $request->input('date');
         $hourId = $request->input('hour_id');
 
+         // Recupera il nome del rack
+        $rack = Rack::find($rackId);
+        $rackName = $rack ? $rack->name : 'Rack sconosciuto';
+
         // Fetch all available items
         $availableItems = $this->fetchAvailableItems($rackId, $date, $hourId, $user->school_id);
 
@@ -122,6 +138,7 @@ class RackController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', "Prenotazione per il rack '$rackName' effettuata con successo.");
+
     }
 }

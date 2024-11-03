@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
-@section('content')
 
+@section('content')
 @if (session('success'))
 <div class="alert alert-success">
     {{ session('success') }}
 </div>
 @endif
+
 
     @if(Auth::user()->role == 'manager') {{-- // only if you are the manager you can see this page --}}
         @if (count($schools) == 0)

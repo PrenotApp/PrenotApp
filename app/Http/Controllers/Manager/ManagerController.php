@@ -28,6 +28,9 @@ class ManagerController extends Controller
 
     public function storeSchool(CreateSchoolRequest $request)
     {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
         $data = $request->validated();
 
         // Genera un codice alfanumerico e lo rende uppercase
@@ -41,18 +44,27 @@ class ManagerController extends Controller
         $school->save();
 
         return redirect()->route('manager.index');
+        }
     }
 
     public function deleteSchool(School $school)
     {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
         $school->delete(); // soft delete
-        return redirect()->route('manager.index')->with('success', 'Scuola spostata nel cestino.');;
+        return redirect()->route('manager.index')->with('success', 'Scuola spostata nel cestino.');
+        }
     }
 
     public function trashedSchools()
     {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
         $schools = School::onlyTrashed()->get();
         return view('manager.trashed', compact('schools'));
+        }
     }
 
     public function restore($id)
@@ -60,15 +72,23 @@ class ManagerController extends Controller
         if (Auth::user()->role !== 'manager') {
             abort(403);
         } else {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
         $school = School::onlyTrashed()->where('id', $id)->firstOrFail();
         $school->restore();
         return redirect()->route('manager.trashed')->with('success', 'Scuola ripristinata con successo.');}
+        }
     }
 
     public function forceDeleteSchool($id)
     {
+        if (Auth::user()->role !== 'manager') {
+            abort(403);
+        } else {
         $school = School::onlyTrashed()->where('id', $id)->firstOrFail();
         $school->forceDelete();
-        return redirect()->route('manager.trashed')->with('success', 'Scuola eliminata definitivamente.');;
+        return redirect()->route('manager.trashed')->with('success', 'Scuola eliminata definitivamente.');
+        }
     }
 }
