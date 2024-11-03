@@ -57,7 +57,7 @@ class HourController extends Controller
         $validatedData['school_id'] = $schoolId;
         $hour = Hour::create($validatedData);
 
-        return redirect()->route('hour.index');
+        return redirect()->route('hour.index')->with('success', 'Orario creato con successo.');
     }
 
     public function edit($id)
@@ -101,6 +101,6 @@ class HourController extends Controller
     {
         $hour = Hour::findOrFail($id);
         $hour->delete();
-        return redirect()->route('hour.index');
+        return redirect()->route('hour.index')->with('success', 'Orario eliminato con successo.');
     }
 }

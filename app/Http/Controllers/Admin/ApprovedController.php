@@ -40,7 +40,7 @@ class ApprovedController extends Controller
         $approved = Approved::create($data);
         $approved->save();
 
-        return redirect()->route('approved.index');}
+        return redirect()->route('approved.index')->with('success', 'Docente aggiunto con successo.');}
     }
 
     public function delete(Approved $approved)

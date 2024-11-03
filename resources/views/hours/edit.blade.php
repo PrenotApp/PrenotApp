@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
+
 @section('content')
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
     <form action="{{ route('hour.update',$hour->id) }}" method="POST">
         @csrf
         @method('PUT')

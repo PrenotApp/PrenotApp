@@ -4,7 +4,13 @@
     @vite(['resources/js/validations/categoryCreate.js'])
 @endsection
 
+
 @section('content')
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
     <form action="{{ route('category.store') }}" method="POST" id="myForm">
         @csrf
 

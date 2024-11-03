@@ -35,12 +35,14 @@
                                 {{('Schools')}}
                             </a>
                         @endif
+                        @if (Auth::check())
                         <a href="{{ route('home') }}">
                             Home
                         </a>
                         <a href="{{ route('booking.index') }}">
                             Prenotazioni
                         </a>
+                        @endif
                         @if(Auth::check() && Auth::user()->role !== 'common')
                             <a href="{{ route('hour.index') }}">
                                 Orario

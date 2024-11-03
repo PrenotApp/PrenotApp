@@ -64,7 +64,7 @@ class ItemController extends Controller
 
         $item = Item::create($data);
         $item->save();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Dispositivo creato con successo.');
     }
 
     public function edit($id)
@@ -97,7 +97,7 @@ class ItemController extends Controller
 
         $item->update($validatedData);
 
-        return redirect()->route('home')->with('success', 'Item aggiornato con successo!');
+        return redirect()->route('home')->with('success', 'Dispositivo aggiornato con successo!');
     }
 
     public function delete($id)
@@ -105,6 +105,6 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Dispositivo eliminato con successo.');
     }
 }

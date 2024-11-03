@@ -2,18 +2,24 @@
 
 @section('content')
 
-    @if(Auth::check() && Auth::user()->role !== 'common')
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
-        <a href="{{ route('item.create') }}">
-            Aggiungi dispositivo
-        </a>
-        <a href="{{ route('category.create') }}">
-            Aggiungi categoria
-        </a>
-        <a href="{{ route('rack.create') }}">
-            Aggiungi gruppo
-        </a>
-    @endif
+@if(Auth::check() && Auth::user()->role !== 'common')
+
+    <a href="{{ route('item.create') }}">
+        Aggiungi dispositivo
+    </a>
+    <a href="{{ route('category.create') }}">
+        Aggiungi categoria
+    </a>
+    <a href="{{ route('rack.create') }}">
+        Aggiungi gruppo
+    </a>
+@endif
 
     @foreach ($groupedItems as $category => $items)
         <h2><i class="{{ $items[0]->category_icon }}"></i>{{ $category }}</h2>

@@ -45,6 +45,6 @@ class CategoryController extends Controller
 
         $category = Category::create($data);
         $category->save();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Categoria creata con successo.');
     }
 }
