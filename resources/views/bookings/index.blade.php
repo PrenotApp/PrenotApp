@@ -5,11 +5,13 @@
 @endsection
 
 @section('content')
-    <h1>Lista Prenotazioni</h1>
+    <h1><a href="{{ route('booking.create') }}">Prenota</a></h1>
+
+    <h2>Lista Prenotazioni</h2>
 
     <form id="filterForm">
         @csrf
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label for="start_date">Da:</label>
