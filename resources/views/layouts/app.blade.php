@@ -14,6 +14,9 @@
 
     {{-- Custom Links --}}
     @yield('links')
+
+    <!-- Custom CSS -->
+    @yield('custom-scss')
 </head>
 <body>
     <div id="app">

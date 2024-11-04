@@ -1,37 +1,52 @@
 @extends('layouts.app')
 
+@section('custom-scss')
+    @vite(['resources/sass/manager/trashed.scss'])
+@endsection
+
 
 @section('content')
 @if (session('success'))
 <div class="alert alert-success">
     {{ session('success') }}
 </div>
+
 @endif
-
-
     @if(Auth::user()->role == 'manager') {{-- // only if you are the manager you can see this page --}}
+    <section id="trashed">
         @if (count($schools) == 0)
-            <p>Il cestino &egrave; vuoto</p>
+            <h1>Il cestino &egrave; vuoto</h1>
         @else
-            @foreach($schools as $school)
-                <h2>{{ $school->name }} - <span>Codice: {{ $school->code }}</span></h2>
+            <div class="school">
+                @foreach($schools as $school)
+                <section class="list">
+                    <div>
+                        <h2>Nome: {{ $school->name }}</h2>
+                        <h2>Codice: {{ $school->code }}</h2>
+                    </div>
 
-                <form action="{{ route('manager.restore', $school->id) }}" method="POST">
-                    @method('patch')
-                    @csrf
+                    <section class="button">
+                        <form  action="{{ route('manager.restore', $school->id) }}" method="POST">
+                            @method('patch')
+                            @csrf
 
-                    <button>Ripristina</button>
-                </form>
+                            <button class="restore">Ripristina</button>
+                        </form>
 
-                <form action="{{ route('manager.forceDelete', $school->id) }}" method="POST">
-                    @method('DELETE')
-                    @csrf
+                        <form action="{{ route('manager.forceDelete', $school->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
 
-                    <button>Elimina</button>
-                </form>
-            @endforeach
+                            <button>Elimina</button>
+                        </form>
+                    </section>
+                </section>
+                <hr>
+                @endforeach
+            </div>
         @endif
-    @else
-        {{@abort(403)}} {{-- // otherwhise u obtain a 403 --}}
-    @endif
+    </section>
+@else
+    {{@abort(403)}} {{-- // otherwhise u obtain a 403 --}}
+@endif
 @endsection
