@@ -71,7 +71,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $school = School::where('code', $data['code'])->first();
+        $code = strtoupper($data['code']);
+        $school = School::where('code', $code)->first();
         // check school
         if (!$school) {
             throw ValidationException::withMessages(['code' => 'Codice scuola non valido.']);
