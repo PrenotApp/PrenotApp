@@ -6,6 +6,15 @@
 
 @section('content')
     <div class="myContainer">
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <h2 class="text-dark">{{ $error }}</h2>
+                @endforeach
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('register') }}" id="myForm">
             @csrf
 
@@ -76,9 +85,7 @@
                     <button class="submit" type="submit">Registrati</button>
                 </div>
 
-                @if($errors->any())
-                    {{ implode('', $errors->all('<div>:message</div>')) }}
-                @endif
+
         </form>
     </div>
 @endsection

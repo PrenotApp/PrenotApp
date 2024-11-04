@@ -38,6 +38,9 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $data = $request->validated();
 
         $user = Auth::user();
@@ -45,6 +48,7 @@ class CategoryController extends Controller
 
         $category = Category::create($data);
         $category->save();
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Categoria creata con successo.');
+        }
     }
 }

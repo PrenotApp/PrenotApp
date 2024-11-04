@@ -16,6 +16,9 @@ class HourController extends Controller
 {
     public function index()
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $hours = Hour::where('school_id', Auth::user()->school_id)
             ->get()
             ->map(function ($hour) {
@@ -24,18 +27,26 @@ class HourController extends Controller
                 return $hour;
             });
         return view('hours.index', compact('hours'));
+        }
     }
 
     public function create()
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         if (Auth::user()->role === 'common'){
             abort(403);
         }
         return view('hours.create');
+        }
     }
 
     public function store(Request $request)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $schoolId = Auth::user()->school_id;
 
         $validatedData = $request->validate([
@@ -57,11 +68,15 @@ class HourController extends Controller
         $validatedData['school_id'] = $schoolId;
         $hour = Hour::create($validatedData);
 
-        return redirect()->route('hour.index');
+        return redirect()->route('hour.index')->with('success', 'Orario creato con successo.');
+        }
     }
 
     public function edit($id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $hour = Hour::findOrFail($id);
         if (Auth::user()->role === 'common' || Auth::user()->school_id !== $hour->school_id){
             abort(403);
@@ -69,10 +84,14 @@ class HourController extends Controller
         $hour['start'] = date('H:i', strtotime($hour['start']));
         $hour['end'] = date('H:i', strtotime($hour['end']));
         return view('hours.edit', compact('hour'));
+        }
     }
 
     public function update(StoreHourRequest $request, $id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $hour = Hour::findOrFail($id);
         $schoolId = Auth::user()->school_id;
 
@@ -95,12 +114,17 @@ class HourController extends Controller
         $hour->update($validatedData);
 
         return redirect()->route('hour.index')->with('success', 'Orario aggiornato con successo!');
+        }
     }
 
     public function delete($id)
     {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
         $hour = Hour::findOrFail($id);
         $hour->delete();
-        return redirect()->route('hour.index');
+        return redirect()->route('hour.index')->with('success', 'Orario eliminato con successo.');
+        }
     }
 }

@@ -2,23 +2,24 @@
 
 @section('content')
 
-    @if(Auth::check() && Auth::user()->role == 'admin')
-        <a href="{{ route('booking.index') }}">
-            Prenotazioni
-        </a>
-        <a href="{{ route('item.create') }}">
-            Aggiungi dispositivo
-        </a>
-        <a href="{{ route('category.create') }}">
-            Aggiungi categoria
-        </a>
-        <a href="{{ route('hour.create') }}">
-            Aggiungi orario
-        </a>
-        <a href="{{ route('approved.index') }}">
-            Gestisci docenti
-        </a>
-    @endif
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
+@if(Auth::check() && Auth::user()->role !== 'common')
+
+    <a href="{{ route('item.create') }}">
+        Aggiungi dispositivo
+    </a>
+    <a href="{{ route('category.create') }}">
+        Aggiungi categoria
+    </a>
+    <a href="{{ route('rack.create') }}">
+        Aggiungi gruppo
+    </a>
+@endif
 
     @foreach ($groupedItems as $category => $items)
         <h2><i class="{{ $items[0]->category_icon }}"></i>{{ $category }}</h2>
