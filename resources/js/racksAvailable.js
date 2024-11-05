@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const hourEl = document.getElementById('hour_id');
     function loadItems(){
         const itemsEl = document.getElementById('availableItems');
-        const rackId = document.getElementById('rack_id').value;
+        const rackId = document.querySelector('meta[name="rack-id"]').content;
+        const countItemsEl = document.getElementById('countItems');
 
         if (dateEl.value != null && hourEl.value != null) {
             axios.get('/gruppi/disponibili', {
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         child.textContent = item.name;
                         itemsEl.appendChild(child);
                     });
+                    countItemsEl.innerText = response.data.length
                 }
 
             });

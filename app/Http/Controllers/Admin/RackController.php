@@ -138,7 +138,9 @@ class RackController extends Controller
             ]);
         }
 
-        return redirect()->route('home')->with('success', "Prenotazione per il rack '$rackName' effettuata con successo.");
-
+        if (count($availableItems) == 0) {
+            return redirect()->route('home')->with('error', "Nessun item disponibile per l'ora selezionata.");
+        }
+        return redirect()->route('home')->with('success', "Prenotazione per '$rackName' effettuata con successo.");
     }
 }

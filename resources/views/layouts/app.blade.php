@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ Auth::check() ? (Auth::user()->role == 'manager' ? url('/scuole') : url('/')) : '' }}">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ asset('images/logo.png') }}" alt="Prenotapp logo" class="logo">
                     Prenot<span class="bold">APP</span>
                 </a>
@@ -38,13 +38,13 @@
                     <ul class="navbar-nav me-auto">
                         @if(Auth::check() && Auth::user()->role == 'manager')
                             <a href="{{ route('manager.index')}}">
-                                {{('Schools')}}
+                                Scuole
                             </a>
                         @endif
                         @if (Auth::check())
-                        <a href="{{ route('booking.index') }}">
-                            Prenotazioni
-                        </a>
+                            <a href="{{ route('booking.index') }}">
+                                Prenotazioni
+                            </a>
                         @endif
                         @if(Auth::check() && Auth::user()->role !== 'common')
                             <a href="{{ route('hour.index') }}">

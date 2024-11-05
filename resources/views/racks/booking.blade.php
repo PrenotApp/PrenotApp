@@ -4,13 +4,15 @@
     @vite(['resources/js/racksAvailable.js'])
 @endsection
 
+@section('meta')
+    <meta name="rack-id" content="{{ $rack->id }}">
+@endsection
+
 @section('content')
     <form action="{{ route('rack.book',$rack->id) }}" method="POST" id="myForm">
         @csrf
 
-        <input type="hidden" name="rack_id" value="{{ $rack->id }}" id="rack_id">
-
-        <label>Dispositivi disponibili</label>
+        <label>Dispositivi disponibili: <span id="countItems"></span></label>
         <div id="availableItems">
             <p>Seleziona data ed ora per vedere i dispositivi</p>
             {{-- Gestito dinamicamente da JS --}}
