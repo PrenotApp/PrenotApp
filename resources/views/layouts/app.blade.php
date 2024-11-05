@@ -53,9 +53,6 @@
                             <a href="{{ route('approved.index') }}">
                                 Docenti
                             </a>
-                            <a href="{{ route('rack.create') }}">
-                                Aggiungi gruppo
-                            </a>
                         @endif
                     </ul>
 

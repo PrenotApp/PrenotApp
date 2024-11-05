@@ -28,6 +28,17 @@
     box-sizing: border-box;
 }
 
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .content-container{
+        width: 50rem;
+    }
+}
+
 .bold{
     font-weight: 700;
 }
@@ -136,4 +147,9 @@ main{
     &:active{
     border: 1px solid blue;
     }
+}
+
+ /* Aggiungi stili personalizzati per il popover */
+.custom-popover .popover-body {
+    color: white; /* Imposta il colore del testo */
 }
