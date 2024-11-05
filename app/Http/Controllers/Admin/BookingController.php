@@ -75,13 +75,16 @@ class BookingController extends Controller
         return redirect()->route('booking.index')->with('success', 'Prenotazione eliminata con successo!');
     }
 
-    public function create(){
-        $items = Item::where('school_id', Auth::user()->school_id)
-                        ->get();
-        $hours = Hour::where('school_id', Auth::user()->school_id)
+    public function create($id){
+        $item = Item::findOrFail($id);
+        $user = Auth::user();
+        if ($item->school_id != $user->school_id || $user->role == 'common') {
+            abort(403);
+        }
+        $hours = Hour::where('school_id', $user->school_id)
                         ->get();
 
-        return view('bookings.create',compact('items','hours'));
+        return view('bookings.create',compact('item','hours'));
     }
 
     public function getAvailableHours(Request $request)
@@ -113,9 +116,10 @@ class BookingController extends Controller
         return response()->json($availableHours);
     }
 
-    public function store(CreateBookingRequest $request)
+    public function store(CreateBookingRequest $request, $id)
     {
         $data = $request->validated();
+        $data['item_id'] = $id;
         $data['school_id'] = Auth::user()->school_id;
         $data['user_id'] = Auth::user()->id;
 

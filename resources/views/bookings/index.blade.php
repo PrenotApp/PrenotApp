@@ -5,9 +5,7 @@
 @endsection
 
 @section('content')
-    <h1><a href="{{ route('booking.create') }}">Aggiungi una prenotazione</a></h1>
-
-    <h3>Lista Prenotazioni</h3>
+    <h1>Lista Prenotazioni</h1>
 
     <form id="filterForm">
         @csrf

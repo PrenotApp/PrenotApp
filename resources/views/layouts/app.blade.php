@@ -12,6 +12,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/main.scss', 'resources/js/app.js'])
 
+    {{-- Meta --}}
+    @yield('meta')
+
     {{-- Custom Links --}}
     @yield('links')
 
@@ -39,9 +42,6 @@
                             </a>
                         @endif
                         @if (Auth::check())
-                        <a href="{{ route('home') }}">
-                            Home
-                        </a>
                         <a href="{{ route('booking.index') }}">
                             Prenotazioni
                         </a>

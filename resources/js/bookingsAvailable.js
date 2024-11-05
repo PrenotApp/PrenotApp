@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const itemSelect = document.getElementById('item_id');
+    const itemId = document.querySelector('meta[name="item-id"]').content;
     const dateInput = document.getElementById('date');
     const hourSelect = document.getElementById('hour_id');
     const dateError = document.getElementById('dateError');
 
     // Funzione che invia la richiesta e aggiorna la select delle ore
     function loadAvailableHours() {
-        const itemId = itemSelect.value;
         const date = dateInput.value;
 
         // Verifica che i campi siano selezionati
@@ -40,12 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 hourSelect.style.display = 'inline-block';
             })
             .catch(function(error) {
-                // console.error('Errore nella richiesta:', error);
+                console.error('Errore nella richiesta:', error);
             });
         }
     }
 
     // Ascolta i cambiamenti nei campi "item" e "date"
-    itemSelect.addEventListener('change', loadAvailableHours);
     dateInput.addEventListener('change', loadAvailableHours);
 });

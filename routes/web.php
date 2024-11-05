@@ -59,8 +59,8 @@ Route::middleware('auth')->group(function () {
     // # Bookings
     Route::get('prenotazioni',[BookingController::class, 'index'])->name('booking.index');
     Route::get('/prenotazioni/filtri', [BookingController::class, 'filter'])->name('booking.filter');
-    Route::get('prenotazioni/crea',[BookingController::class, 'create'])->name('booking.create');
-    Route::post('prenotazioni/aggiungi',[BookingController::class, 'store'])->name('booking.store');
+    Route::get('prenotazioni/{id}/crea',[BookingController::class, 'create'])->name('booking.create');
+    Route::post('prenotazioni/{id}/aggiungi',[BookingController::class, 'store'])->name('booking.store');
     Route::get('/prenotazioni/oredisponibili', [BookingController::class, 'getAvailableHours'])->name('getAvailableHours');
     Route::delete('/prenotazioni/{id}/elimina', [BookingController::class, 'delete'])->name('booking.delete');
     // # Approveds

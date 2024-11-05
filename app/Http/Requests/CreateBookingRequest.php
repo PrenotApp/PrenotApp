@@ -22,7 +22,6 @@ class CreateBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'item_id' => 'required|exists:items,id',
             'date' => 'required',
             'hour_id' => 'required|exists:hours,id',
         ];

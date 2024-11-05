@@ -28,6 +28,7 @@
                 <li>
                     <a href="{{ route('item.show', $item->id) }}">{{ $item->name }}</a>
                     <a href="{{ route('item.edit', $item->id) }}">Modifica</a>
+                    <a href="{{ route('booking.create', $item->id) }}">Prenota</a>
                 </li>
             @endforeach
         </ul>
