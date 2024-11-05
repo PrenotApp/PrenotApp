@@ -52,6 +52,12 @@ class HomeController extends Controller
 
         $racks = Rack::where('school_id', $user->school_id)->get();
 
+
+        // Invia l'email con il codice di verifica
+        $verificationCode = rand(100000, 999999); // Codice di verifica generato (esempio con 6 cifre)
+        // Mail::to('giordanofabrizi@gmail.com')->send(new VerifyEmail($verificationCode, $user->name));
+
+
         return view('main.index', compact('user','groupedItems','racks'));
     }
 }
