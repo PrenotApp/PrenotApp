@@ -15,7 +15,7 @@
                 <input id="email" type="email" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
                 @error('email')
                     <span role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong class="error on">{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
