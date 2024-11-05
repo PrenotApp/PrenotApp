@@ -6,20 +6,15 @@
 
 
 @section('content')
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
     <form action="{{ route('category.store') }}" method="POST" id="myForm">
         @csrf
 
         <div>
             @foreach($icons as $index => $icon)
-            <input class="btn-check" type="radio" id="{{ 'icon' . ($index + 1) }}" name="icon" value="{{ $icon }}" index="{{ $index }}">
-            <label  class="btn secondary-outline" for="{{ 'icon' . ($index + 1) }}">
-                <i class="{{ $icon }}"></i>
-            </label>
+                <input class="btn-check" type="radio" id="{{ 'icon' . ($index + 1) }}" name="icon" value="{{ $icon }}" index="{{ $index }}">
+                <label  class="btn secondary-outline" for="{{ 'icon' . ($index + 1) }}">
+                    <i class="{{ $icon }}"></i>
+                </label>
             @endforeach
         </div>
 

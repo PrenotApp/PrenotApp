@@ -25,8 +25,6 @@ myForm.addEventListener('submit',function(event){
     const selectedIcon = document.querySelector('input[name="icon"]:checked');
     let index = (selectedIcon.attributes.index.nodeValue);
 
-    console.log(selectedIcon.value === icons[index])
-
     if(selectedIcon.value !== icons[index]){ // se non si e' cambiato il valore dell'icona
         if (!error.classList.contains('on')) {
             error.classList.add("on");
@@ -39,5 +37,7 @@ myForm.addEventListener('submit',function(event){
         error.innerText = 'Inserire il nome';
     }
 
-
+    if (error.innerText == '') {
+        myForm.submit();
+    }
 })

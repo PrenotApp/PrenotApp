@@ -41,6 +41,7 @@ class CategoryController extends Controller
         if (Auth::user()->role === 'common') {
             abort(403);
         } else {
+
         $data = $request->validated();
 
         $user = Auth::user();
