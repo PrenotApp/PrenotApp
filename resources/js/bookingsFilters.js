@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const params = new URLSearchParams(new FormData(this)).toString();
 
         // Effettua la richiesta GET
-        axios.get(`/bookings/filter?${params}`)
+        axios.get(`/prenotazioni/filtri?${params}`)
             .then(function (response) {
                 document.getElementById('bookingsList').innerHTML = response.data.html; // Aggiorna la lista con i risultati filtrati
             })

@@ -1,13 +1,8 @@
 @extends('layouts.app')
 
-@section('custom-scss')
-    @vite(['resources/sass/manager/index.scss'])
-@endsection
-
 @section('links')
-    @vite(['resources/js/validations/schoolCreate.js'])
+    @vite(['resources/js/validations/schoolCreate.js','resources/sass/manager/index.scss'])
 @endsection
-
 
 @section('content')
 
