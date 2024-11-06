@@ -19,7 +19,7 @@ class BookingController extends Controller
     {
         $bookings = $this->getBookingsQuery()
             ->with('hour')
-            ->orderBy('date', 'asc')
+            ->orderBy('date', 'desc')
             ->get()
             ->map(function ($booking) {
                 $booking->date = \Carbon\Carbon::parse($booking->date)->format('d/m/Y');

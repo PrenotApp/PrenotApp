@@ -1,0 +1,36 @@
+@use '../variables' as *;
+
+.submitContainer{
+    width: 7rem !important;
+}
+
+h1{
+    color: $secondary-color;
+}
+
+#bookingContainer{
+    article{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        *{
+            margin-bottom: 0;
+        }
+
+        a{
+            text-decoration: underline;
+            &:hover{
+                filter:brightness(80%);
+            }
+        }
+
+        button{
+            border: none;
+            border-radius: 4px;
+            background-color: $button-red;
+            padding: 5px 10px;
+        }
+    }
+}

@@ -1,34 +1,24 @@
 @if ($bookings->isEmpty())
     <p>Nessuna prenotazione trovata.</p>
 @else
-    <table>
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Ora</th>
-                <th>Utente</th>
-                <th>Dispositivo</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div id="bookingContainer">
+        <section>
             @foreach ($bookings as $booking)
-                <tr>
-                    <td>{{ $booking->date }}</td>
-                    <td>{{ $booking->hour->name}}</td>
-                    <td>{{ $booking->user->email }}</td>
-                    <td>{{ $booking->item->name }}</td>
+                <article>
+                    <p>{{ $booking->user->email }}</p>
+                    <a href="{{ route('item.show',$booking->item) }}">{{ $booking->item->name }}</a>
+                    <p>{{ $booking->date }}</p>
+                    <p>{{ $booking->hour->name}}</p>
                     @if(Auth::user()->id === $booking->user_id)
-                        <td>
-                            <form action="{{ route('booking.delete', $booking->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
+                        <form action="{{ route('booking.delete', $booking->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
 
-                                <button type="submit">Elimina</button>
-                            </form>
-                        </td>
+                            <button type="submit">Elimina</button>
+                        </form>
                     @endif
-                </tr>
+                </article>
             @endforeach
-        </tbody>
-    </table>
+        </section>
+    </div>
 @endif
