@@ -22,8 +22,17 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:categories,name',
             'icon' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Il campo nome è obbligatorio.',
+            'name.unique' => 'Il nome inserito esiste già. Scegli un nome diverso.',
+            'icon.required' => 'Il campo icona è obbligatorio.',
         ];
     }
 }
