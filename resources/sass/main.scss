@@ -103,7 +103,8 @@ main{
     input[type="text"],
     input[type="email"],
     input[type="password"],
-    input[type="date"]{
+    input[type="date"],
+    select{
         background-color: #D9D9D9;
         width: 100%;
         padding: 1.7rem .3rem .3rem;
