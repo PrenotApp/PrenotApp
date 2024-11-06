@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.data.length == 0) {
                     let child = document.createElement('p');
                     child.textContent = 'Nessun oggetto disponibile in questo gruppo'
-                    itemsEl.appendChild(option);
+                    countItemsEl.innerText = 0;
                 } else {
                     response.data.forEach(function(item) {
                         let child = document.createElement('p');

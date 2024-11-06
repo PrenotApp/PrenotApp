@@ -24,7 +24,12 @@
             <select name="rack_id" id="rack_id">
                 <option value="" selected>Nessuno</option>
                 @foreach($racks as $rack)
-                <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+                    <option value="{{ $rack->id }}"
+                        @if(old('rack_id', $item->rack_id) == $rack->id){
+                            selected
+                        }
+                        @endif
+                        >{{ $rack->name }}</option>
                 @endforeach
             </select>
 
