@@ -125,6 +125,6 @@ class BookingController extends Controller
 
         $booking = Booking::create($data);
         $booking->save();
-        return redirect()->route('booking.index');
+        return redirect()->route('home');
     }
 }

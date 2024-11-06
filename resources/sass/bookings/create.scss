@@ -1,0 +1,11 @@
+@use '../variables' as *;
+
+form{
+    a{
+        text-decoration: underline;
+        color: $secondary-color;
+        h2{
+            color: $secondary-color;
+        }
+    }
+}
