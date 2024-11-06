@@ -4,33 +4,27 @@
     width: 7rem !important;
 }
 
-h1{
-    color: $secondary-color;
+h1,
+th{
+    color: $secondary-color !important;
 }
 
 #bookingContainer{
-    article{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
+    *{
+        color: white;
+    }
 
-        *{
-            margin-bottom: 0;
+    a{
+        text-decoration: underline;
+        &:hover{
+            filter:brightness(80%);
         }
+    }
 
-        a{
-            text-decoration: underline;
-            &:hover{
-                filter:brightness(80%);
-            }
-        }
-
-        button{
-            border: none;
-            border-radius: 4px;
-            background-color: $button-red;
-            padding: 5px 10px;
-        }
+    button{
+        border: none;
+        border-radius: 4px;
+        background-color: $button-red;
+        padding: 5px 10px;
     }
 }

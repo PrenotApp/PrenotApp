@@ -108,7 +108,7 @@
                                                 @endphp
                                                 @foreach ($rackItems as $rackItem)
                                                     <li>
-                                                        <p class="racks-item"><span>&#9679;</span>{{ $rackItem->name }}</p>
+                                                        <p class="racks-item"><i class="{{ $rackItem->category->icon }}"></i>{{ $rackItem->name }}</p>
                                                     </li>
                                                 @endforeach
                                             </ul>
