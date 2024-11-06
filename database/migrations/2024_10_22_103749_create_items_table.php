@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('rack_id')->nullable()->constrained('racks')->onDelete('cascade');
+            $table->foreignId('rack_id')->nullable()->constrained('racks')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });
