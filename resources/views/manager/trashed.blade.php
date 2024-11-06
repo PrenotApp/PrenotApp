@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('custom-scss')
+@section('links')
     @vite(['resources/sass/manager/trashed.scss'])
 @endsection
 
@@ -10,8 +10,8 @@
 <div class="alert alert-success">
     {{ session('success') }}
 </div>
-
 @endif
+
     @if(Auth::user()->role == 'manager') {{-- // only if you are the manager you can see this page --}}
     <section id="trashed">
         @if (count($schools) == 0)

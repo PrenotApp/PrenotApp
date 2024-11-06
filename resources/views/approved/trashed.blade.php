@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('links')
+    @vite(['resources/sass/approved/trashed.scss'])
+@endsection
+
 @section('content')
     @if (session('success'))
     <div class="alert alert-success">
@@ -7,23 +11,33 @@
     </div>
     @endif
 
-    @if (count($approveds) == 0)
-        <p>Il cestino &egrave; vuoto</p>
-    @else
-        @foreach($approveds as $approved)
-            <h2>{{ $approved->email }}</h2>
-            <form action="{{ route('approved.restore', $approved->id) }}" method="POST">
-                @method('patch')
-                @csrf
+    <section class="main-container" id="trashed">
+        @if (count($approveds) == 0)
+            <h1>Il cestino &egrave; vuoto</h1>
+        @else
+            <div class="teacher content-container">
+                @foreach($approveds as $approved)
+                <section class="list">
+                    <h2>{{ $approved->email }}</h2>
 
-                <button>Ripristina</button>
-            </form>
-            <form action="{{ route('approved.forceDelete', $approved->id) }}" method="POST">
-                @method('DELETE')
-                @csrf
+                    <section class="button">
+                        <form action="{{ route('approved.restore', $approved->id) }}" method="POST">
+                        @method('patch')
+                        @csrf
 
-                <button>Elimina</button>
-            </form>
-        @endforeach
-    @endif
+                        <button>Ripristina</button>
+                        </form>
+                        <form action="{{ route('approved.forceDelete', $approved->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+
+                            <button>Elimina</button>
+                        </form>
+                    </section>
+                </section>
+                <hr>
+                @endforeach
+            </div>
+        @endif
+    </section>
 @endsection

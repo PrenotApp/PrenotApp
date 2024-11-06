@@ -14,16 +14,32 @@ class ApprovedController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role === 'common') {
             abort(403);
-        } else {
-            $approveds = Approved::where('school_id', Auth::user()->school_id)
-            ->get();
-            return view('approved.index', compact('approveds'));
         }
+
+        // Recupera l'ID della scuola dell'utente autenticato
+        $query = Approved::where('school_id', Auth::user()->school_id);
+
+        // Se è presente un parametro di ricerca, aggiungi il filtro per email
+        if ($request->has('search') && $request->search !== '') {
+            $query->where('email', 'like', '%' . $request->search . '%');
+        }
+
+        // Recupera i docenti approvati filtrati
+        $approveds = $query->get();
+
+        // Se la richiesta è AJAX, ritorna solo la lista dei docenti filtrata
+        if ($request->ajax()) {
+            return view('approved.partials.approved-list', compact('approveds'))->render();
+        }
+
+        // Se non è una richiesta AJAX, ritorna la vista completa
+        return view('approved.index', compact('approveds'));
     }
+
 
     /**
      * Store a newly created resource in storage.
