@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 // your imported
 use App\Models\School;
+use App\Models\Item;
 
 class Category extends Model
 {
@@ -20,5 +21,9 @@ class Category extends Model
 
     public function school(){
         return $this->belongsTo(School::class);
+    }
+
+    public function items(){
+        return $this->hasMany(Item::class);
     }
 }

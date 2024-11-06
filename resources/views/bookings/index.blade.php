@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
 @section('links')
-    @vite(['resources/js/bookingsFilters.js'])
+    @vite(['resources/js/bookingsFilters.js','resources/sass/bookings/index.scss'])
 @endsection
 
 @section('content')
     <section class="main-container">
-        <div class="content-contaioner">
-            <h1>Lista Prenotazioni</h1>
+        <div class="content-container">
+            <h1 class="bold">Prenotazioni</h1>
             <form id="filterForm">
                 @csrf
 
-                <div class="row">
-                    <div class="col-md-3">
+                <div class="horizontal">
+                    <div class="inputContainer">
                         <label for="start_date">Da:</label>
-                        <input type="date" name="start_date" id="start_date" class="form-control">
+                        <input type="date" name="start_date" id="start_date">
                     </div>
-                    <div class="col-md-3">
+                    <div class="inputContainer">
                         <label for="end_date">A:</label>
-                        <input type="date" name="end_date" id="end_date" class="form-control">
+                        <input type="date" name="end_date" id="end_date">
                     </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary mt-4">Filtra</button>
+                    <div class="inputContainer submitContainer">
+                        <button type="submit" class="submit">Filtra</button>
                     </div>
                 </div>
             </form>

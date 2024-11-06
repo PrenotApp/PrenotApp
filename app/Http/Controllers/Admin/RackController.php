@@ -113,19 +113,18 @@ class RackController extends Controller
         return response()->json($availableItems);
     }
 
-    public function bookAvailable(Request $request)
+    public function bookAvailable(Request $request, $id)
     {
         $user = Auth::user();
-        $rackId = $request->input('rack_id');
+        $rack = Rack::findOrFail($id);
         $date = $request->input('date');
         $hourId = $request->input('hour_id');
 
-         // Recupera il nome del rack
-        $rack = Rack::find($rackId);
+        // Recupera il nome del rack
         $rackName = $rack ? $rack->name : 'Rack sconosciuto';
 
         // Fetch all available items
-        $availableItems = $this->fetchAvailableItems($rackId, $date, $hourId, $user->school_id);
+        $availableItems = $this->fetchAvailableItems($id, $date, $hourId, $user->school_id);
 
         // Create a booking for each available item
         foreach ($availableItems as $item) {

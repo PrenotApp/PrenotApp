@@ -4,7 +4,6 @@
     <form action="{{ route('rack.store') }}" method="POST" id="myForm">
         @csrf
 
-
         <label for="name">Nome</label>
         <input type="text" name="name" id="name" placeholder="es: Gruppo A">
 

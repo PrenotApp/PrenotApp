@@ -10,6 +10,7 @@ use App\Models\School;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
+use App\Models\Category;
 use Illuminate\Support\Facades\Config;
 use App\Models\Rack;
 
@@ -34,30 +35,16 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         $school = School::where('id', $user->school_id)->firstOrFail();
-
-        $items = DB::table('items')
-            ->join('categories', 'items.category_id', '=', 'categories.id')
-            ->select('categories.name as category_name', 'categories.icon as category_icon', 'items.*')
-            ->where('items.school_id', $school->id)
-            ->whereNull('items.deleted_at')
-            ->orderBy('category_id')
-            ->get();
-
-        $groupedItems = $items->groupBy('category_name')
-            ->map(function ($items) {
-                return $items;
-            })
-            ->toArray();
-
+        $categories = Category::where('school_id', $user->school_id)->get();
         $racks = Rack::where('school_id', $user->school_id)->get();
-
 
         // Invia l'email con il codice di verifica
         $verificationCode = rand(100000, 999999); // Codice di verifica generato (esempio con 6 cifre)
         // Mail::to('giordanofabrizi@gmail.com')->send(new VerifyEmail($verificationCode, $user->name));
 
 
-        return view('main.index', compact('user','groupedItems','racks'));
+        return view('main.index', compact('user','categories','racks'));
     }
 }

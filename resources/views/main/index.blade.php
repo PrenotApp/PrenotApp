@@ -32,29 +32,32 @@
 
     <section class="main-container" id="index">
         <div class="accordion content-container" id="accordionCategories">
-            @foreach ($groupedItems as $category => $items)
+            @foreach ($categories as $category)
+            @php
+                $categoryItems = $category->items;
+            @endphp
             <div class="accordion-item mb-4">
                 <h2 class="accordion-header" id="heading-{{ Str::slug($category) }}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ Str::slug($category) }}" aria-expanded="false" aria-controls="collapse-{{ Str::slug($category) }}">
-                        <i class="{{ $items[0]->category_icon }}"></i><span>{{ $category }} ({{ count($items) }})</span>
+                        <i class="{{ $category->icon }}"></i><span>{{ $category->name }} ({{ count($categoryItems) }})</span>
                     </button>
                 </h2>
                 <div id="collapse-{{ Str::slug($category) }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ Str::slug($category) }}">
                     <div class="accordion-body">
                         <ul>
-                            @foreach ($items as $index => $item)
-                            <li>
-                                <a href="{{ route('item.show', $item->id) }}">{{ $item->name }}</a>
-                                <div>
-                                    @if(Auth::check() && Auth::user()->role !== 'common')
-                                    <a class="btn btn-warning" href="{{ route('item.edit', $item->id) }}">Modifica</a>
-                                    @endif
-                                    <a class="btn btn-primary" href="{{ route('booking.create', $item->id) }}">Prenota</a>
-                                </div>
-                            </li>
-                            @if ($index < count($items) - 1)
-                                <hr>
-                            @endif
+                            @foreach ($categoryItems as $index => $categoryItem)
+                                <li>
+                                    <a href="{{ route('item.show', $categoryItem->id) }}">{{ $categoryItem->name }}</a>
+                                    <div>
+                                        @if(Auth::check() && Auth::user()->role !== 'common')
+                                        <a class="btn btn-warning" href="{{ route('item.edit', $categoryItem->id) }}">Modifica</a>
+                                        @endif
+                                        <a class="btn btn-primary" href="{{ route('booking.create', $categoryItem->id) }}">Prenota</a>
+                                    </div>
+                                </li>
+                                @if ($index < count($categoryItems) - 1)
+                                    <hr>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
@@ -80,7 +83,7 @@
                 <div id="panelsStayOpen-collapseCarelli" class="accordion-collapse collapse show">
                     <div class="accordion-body">
                         <div class="accordion" id="accordionRacks">
-                            @foreach($racks as $rack)
+                            @foreach($racks as $index => $rack)
                                 <div>
                                     <h2 id="headingRack-{{ $rack->id }}">
                                         <section class="rack-section">
@@ -99,25 +102,20 @@
                                     <div id="collapseRack-{{ $rack->id }}" class="accordion-collapse collapse" aria-labelledby="headingRack-{{ $rack->id }}">
                                         <div class="accordion-body last-body">
                                             <ul>
-                                                @foreach ($groupedItems as $items)
-                                                    @php
-                                                        // Filtra solo gli items che appartengono al rack corrente
-                                                        $filteredItems = array_filter($items, function($item) use ($rack) {
-                                                            return $item->rack_id === $rack->id;
-                                                        });
-                                                    @endphp
-
-                                                    @foreach ($filteredItems as $item)
-                                                        <li>
-                                                            <p class="racks-item"><span>&#9679;</span>{{ $item->name }}</p>
-                                                        </li>
-                                                    @endforeach
+                                                @php
+                                                    // Filtra solo gli items che appartengono al rack corrente
+                                                    $rackItems = $rack->items
+                                                @endphp
+                                                @foreach ($rackItems as $rackItem)
+                                                    <li>
+                                                        <p class="racks-item"><i class="{{ $rackItem->category->icon }}"></i>{{ $rackItem->name }}</p>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                @if (!$loop->last)
+                                @if ($index < count($racks) - 1)
                                     <hr>
                                 @endif
                             @endforeach

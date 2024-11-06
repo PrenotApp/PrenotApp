@@ -115,8 +115,10 @@
         h2{
             margin: 0;
         }
-        span{
-            color: black;
+        svg{
+            path{
+                color: black;
+            }
             margin-right: .5rem;
         }
     }
@@ -146,6 +148,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            max-width: 20rem;
         }
     }
 }
