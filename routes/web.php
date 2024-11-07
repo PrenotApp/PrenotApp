@@ -51,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/categoria/aggiungi', [CategoryController::class, 'store'])->name('category.store');
     // # Hours
     Route::get('/orario',[HourController::class, 'index'])->name('hour.index');
-    Route::get('/orario/crea',[HourController::class, 'create'])->name('hour.create');
     Route::post('/orario/aggiungi', [HourController::class, 'store'])->name('hour.store');
     Route::get('/orario/{id}/modifica',[HourController::class, 'edit'])->name('hour.edit');
     Route::put('/orario/{id}/aggiorna',[HourController::class, 'update'])->name('hour.update');
