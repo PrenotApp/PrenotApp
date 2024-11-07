@@ -1,0 +1,16 @@
+@use '../variables' as *;
+
+h2{
+    color: $secondary-color;
+}
+
+table *{
+    color: white !important;
+
+    button{
+        border: none;
+        border-radius: 4px;
+        background-color: $button-red;
+        padding: 5px 10px;
+    }
+}
