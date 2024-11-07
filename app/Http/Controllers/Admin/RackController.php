@@ -11,6 +11,7 @@ use App\Models\Rack;
 use App\Models\Booking;
 use App\Models\Item;
 use App\Models\Hour;
+use Illuminate\Support\Facades\Log;
 
 class RackController extends Controller
 {
@@ -108,10 +109,48 @@ class RackController extends Controller
         $date = $request->input('date');
         $hourId = $request->input('hour_id');
 
-        $availableItems = $this->fetchAvailableItems($rackId, $date, $hourId, $user->school_id);
+        // Log dei parametri ricevuti
+        Log::info("Parametri ricevuti: rackId=$rackId, date=$date, hourId=$hourId");
 
-        return response()->json($availableItems);
+        // Verifica che i parametri siano validi
+        if (!$rackId || !$date || !$hourId || !$user) {
+            return response()->json(['error' => 'Parametri mancanti o utente non autenticato'], 400);
+        }
+
+        // Ottieni tutti gli elementi associati al rack e alla scuola dell'utente
+        try {
+            $allItems = Item::where('rack_id', $rackId)
+                            ->where('school_id', $user->school_id)
+                            ->get()
+                            ->map(function($item) use ($date, $hourId) {
+                                // Determina se l'elemento è disponibile o meno
+                                $item->available = $this->isItemAvailable($item, $date, $hourId);
+                                return $item;
+                            });
+
+            // Restituisce tutti gli elementi, inclusi quelli non disponibili
+            return response()->json(['items' => $allItems]);
+
+        } catch (\Exception $e) {
+            // Log dell'errore
+            Log::error("Errore nel caricamento degli elementi: " . $e->getMessage());
+            return response()->json(['error' => 'Errore interno del server'], 500);
+        }
     }
+
+
+
+    public function isItemAvailable($item, $date, $hourId)
+    {
+        // Supponiamo che tu abbia una tabella `reservations` che contiene le prenotazioni.
+        return !Booking::where('item_id', $item->id)
+                            ->where('date', $date)
+                            ->where('hour_id', $hourId)
+                            ->exists();
+    }
+
+
+
 
     public function bookAvailable(Request $request, $id)
     {
