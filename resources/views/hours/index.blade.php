@@ -13,7 +13,7 @@
 @endif
     <section id="index" class="main-container">
         <div class="content-container">
-            @if (Auth::user()->role !== 'common')
+            @if(Auth::check() && Auth::user()->role !== 'common')
                 <form class="add" action="{{ route('hour.store') }}" method="POST" id="myForm">
                     @csrf
 
@@ -55,7 +55,7 @@
                             <p>Orario: {{ $hour->start }} - {{ $hour->end }}</p>
                         </div>
                     </div>
-
+                    @if(Auth::check() && Auth::user()->role !== 'common')
                     <div class="buttons">
                         <a class="btn btn-warning" href="{{ route('hour.edit', $hour->id) }}">Modifica</a>
                         <form action="{{ route('hour.delete', $hour->id) }}" method="POST">
@@ -65,6 +65,7 @@
                             <button class="btn btn-danger" type="submit">Elimina</button>
                         </form>
                     </div>
+                    @endif
                 </div>
                 @if ($index < count($hours) - 1)
                                     <hr>

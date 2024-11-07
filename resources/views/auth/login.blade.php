@@ -32,19 +32,19 @@
                 @enderror
             </div>
         </div>
-        <div class="form-check mt-2">
+        <div class="form-check my-2">
             <input type="checkbox" class="form-check-input" id="showPassword">
             <label class="form-check-label" for="showPassword">Mostra password</label>
         </div>
 
-        <div>
+        <div class="mb-3">
             <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
             <label for="remember">Ricordami</label>
         </div>
 
         <button class="submit" type="submit">Login</button>
 
-        <div>
+        <div class="mt-3 text-center">
             @if (Route::has('password.request'))
                 <a href="{{ route('password.request') }}">Hai dimenticato la tua password?</a>
             @endif
