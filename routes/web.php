@@ -31,7 +31,10 @@ Auth::routes(['verify' => true]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function () {
+Route::get('/verify-code', [VerificationController::class, 'showVerifyCodeForm'])->name('verification.code');
+Route::post('/verify-code', [VerificationController::class, 'verifyCode'])->name('verification.verify.code');
+
+Route::middleware(['auth','verified'])->group(function () {
     // # Manager
     Route::get('/scuole', [ManagerController::class, 'indexSchool'])->name('manager.index');
     Route::post('/scuole/aggiungi', [ManagerController::class, 'storeSchool'])->name('manager.store');

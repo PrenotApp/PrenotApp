@@ -6,22 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 //your imports
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class VerificationController extends Controller
 {
-    public function verify(Request $request)
+    public function verifyCode(Request $request)
     {
-        $user = User::where('verification_code', $request->code)->first();
+        $request->validate([
+            'verification_code' => 'required|numeric',
+        ]);
 
-        if ($user) {
-            $user->email_verified_at = now();
-            $user->verification_code = null;  // Pulisce il codice dopo l’uso
-            $user->save();
+        $user = Auth::user();
+        $me = User::findOrFail($user->id);
 
-            return redirect()->route('home')->with('status', 'Email verificata con successo!');
+        // Verifica se il codice di verifica è corretto
+        if ($me->verification_code == $request->verification_code) {
+            $me->email_verified_at = now();
+            $me->save();
+
+            return redirect()->route('home')->with('success', 'Email verificata con successo!');
         }
 
-        return back()->withErrors(['code' => 'Codice di verifica non valido.']);
+        return back()->withErrors(['verification_code' => 'Codice di verifica non valido.']);
     }
 }
