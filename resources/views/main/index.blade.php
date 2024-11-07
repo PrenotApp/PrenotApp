@@ -19,6 +19,7 @@
 
     @if(Auth::check() && Auth::user()->role !== 'common')
     <section id="create" class="main-container">
+        <h3 class="code">codice scuola: {{$school->code}}</h3>
         <div class="content-container">
             <a class="submit" href="{{ route('category.create') }}">
                 Crea categoria

@@ -45,6 +45,6 @@ class HomeController extends Controller
         // Mail::to('giordanofabrizi@gmail.com')->send(new VerifyEmail($verificationCode, $user->name));
 
 
-        return view('main.index', compact('user','categories','racks'));
+        return view('main.index', compact('user','categories','racks', 'school'));
     }
 }
