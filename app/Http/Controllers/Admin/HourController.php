@@ -20,6 +20,7 @@ class HourController extends Controller
             abort(403);
         } else {
         $hours = Hour::where('school_id', Auth::user()->school_id)
+            ->orderBy('start', 'asc')
             ->get()
             ->map(function ($hour) {
                 $hour->start = Carbon::createFromFormat('H:i:s', $hour->start)->format('H:i');
@@ -55,7 +56,7 @@ class HourController extends Controller
                 'string',
                 'max:255',
                 Rule::unique('hours')->where(function ($query) use ($schoolId) {
-                    return $query->where('school_id', $schoolId);
+                    return $query->where('school_id', $schoolId)->whereNull('deleted_at');
                 }),
             ],
             'start' => 'required',

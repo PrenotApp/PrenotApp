@@ -38,6 +38,6 @@ class HomeController extends Controller
         $categories = Category::where('school_id', $user->school_id)->get();
         $racks = Rack::where('school_id', $user->school_id)->get();
 
-        return view('main.index', compact('user','categories','racks'));
+        return view('main.index', compact('user','categories','racks', 'school'));
     }
 }
