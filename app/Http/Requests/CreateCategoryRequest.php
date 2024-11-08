@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class CreateCategoryRequest extends FormRequest
 {
@@ -22,10 +24,16 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:categories,name',
+            'name' => [
+                'required',
+                Rule::unique('categories', 'name')
+                    ->where('school_id', auth()->user()->school_id)
+                    ->ignore($this->route('category')), // esclude il record attuale dall'unicità
+            ],
             'icon' => 'required',
         ];
     }
+
 
     public function messages(): array
     {

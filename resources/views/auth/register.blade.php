@@ -81,7 +81,7 @@
                 <input type="checkbox" class="form-check-input" id="showConfirmationPassword">
                 <label class="form-check-label" for="showPassword">Mostra password</label>
             </div>
-                <div>
+                <div class="mt-3">
                     <button class="submit" type="submit">Registrati</button>
                 </div>
 

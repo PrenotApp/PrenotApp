@@ -29,7 +29,7 @@
 
                     <p class="error"></p>
                     @error('name')
-                        <div class="error-message">{{ $message }}</div>
+                        <div class="error-message error">{{ $message }}</div>
                     @enderror
                 </div>
 
