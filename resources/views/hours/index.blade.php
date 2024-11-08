@@ -20,13 +20,9 @@
                     <div class="inputContainer">
                         <label for="name">Nome</label>
                         <input type="text" name="name" id="name" placeholder="Inserisci nome dell'orario">
-                        <p class="error"></p>
 
-                        @error('name')
-                            <span role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+
+
                     </div>
 
                     <div class="inputContainer time">
@@ -38,12 +34,23 @@
                     <div class="inputContainer time" >
                         <label for="end">Fine</label>
                         <input type="time" name="end" id="end">
-                        <p id="timeEr" class="error"></p>
+
                     </div>
 
 
                     <button class="submit" type="submit">Crea</button>
                 </form>
+                <div id="errorContainer">
+                        @error('name')
+                            <span role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        <p id="nameEr" class="error"></p>
+
+                        <p id="timeEr" class="error"></p>
+                </div>
             @endif
 
             <section class="content-container list">
