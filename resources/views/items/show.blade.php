@@ -13,6 +13,7 @@
             <div>
                 <a class="btn btn-primary d-inline py-2" href="{{ route('booking.create',$item) }}">Prenota</a>
                 @if (Auth::user()->role !== 'common')
+                    <a class="btn btn-warning" href="{{ route('item.edit', $item->id) }}">Modifica</a>
                     <form class="d-inline" action="{{ route('item.delete', $item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

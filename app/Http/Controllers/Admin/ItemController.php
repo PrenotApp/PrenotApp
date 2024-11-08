@@ -71,7 +71,7 @@ class ItemController extends Controller
 
         $item = Item::create($data);
         $item->save();
-        return redirect()->route('home')->with('success', 'Dispositivo creato con successo.');
+        return redirect()->route('home')->with('success', 'Articolo creato con successo.');
         }
     }
 
@@ -112,7 +112,7 @@ class ItemController extends Controller
 
         $item->update($validatedData);
 
-        return redirect()->route('home')->with('success', 'Dispositivo aggiornato con successo!');
+        return redirect()->route('home')->with('success', 'Articolo aggiornato con successo!');
         }
     }
 
@@ -124,7 +124,31 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('home')->with('success', 'Dispositivo eliminato con successo.');
+        return redirect()->route('home')->with('success', 'Articolo eliminato con successo.');
         }
+    }
+
+    public function trashed()
+    {
+        if(Auth::user()->role === 'common'){
+            @abort(403);
+        } else {
+            $items = Item::where('school_id', Auth::user()->school_id)->onlyTrashed()->get();
+            return view('items.trashed',compact('items'));
+        }
+    }
+
+    public function restore($id){
+        $item = Item::onlyTrashed()->where('id', $id)->firstOrFail();
+        $item->restore();
+
+        return redirect()->route('home')->with('success','Articolo ripristinato con successo');
+    }
+
+    public function destroy($id){
+        $item = Item::onlyTrashed()->where('id', $id)->firstOrFail();
+        $item->forceDelete();
+
+        return redirect()->route('home')->with('success','Articolo eliminato con successo');
     }
 }
