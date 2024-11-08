@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('links')
+    @vite(['resources/sass/hours/edit.scss'])
+@endsection
 
 @section('content')
 @if (session('success'))
@@ -7,19 +10,31 @@
     {{ session('success') }}
 </div>
 @endif
-    <form action="{{ route('hour.update',$hour->id) }}" method="POST">
-        @csrf
-        @method('PUT')
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" value="{{ old('name', $hour->name) }}">
+    <section id="edit" class="main-container">
+        <div class="content-container">
+            <form class="add" action="{{ route('hour.update',$hour->id) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-        <label for="start">Inizio</label>
-        <input type="time" name="start" id="start" value="{{ old('start', $hour->start) }}">
+                <div class="inputContainer">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" value="{{ old('name', $hour->name) }}">
+                </div>
 
-        <label for="end">Fine</label>
-        <input type="time" name="end" id="end" value="{{ old('end', $hour->end) }}">
+                <div class="inputContainer time">
+                    <label for="start">Inizio</label>
+                    <input type="time" name="start" id="start" value="{{ old('start', $hour->start) }}">
+                </div>
 
-        <button type="submit">Modifica</button>
-    </form>
+                <div class="inputContainer time">
+                    <label for="end">Fine</label>
+                    <input type="time" name="end" id="end" value="{{ old('end', $hour->end) }}">
+                </div>
+
+                <button class="submit" type="submit">Modifica</button>
+            </form>
+        </div>
+    </section>
+
 @endsection
