@@ -1,20 +1,31 @@
 @extends('layouts.app')
 
+@section('links')
+    @vite(['resources/sass/racks/create-edit.scss'])
+@endsection
+
 @section('content')
-    <form action="{{ route('rack.update',$rack->id) }}" method="POST" id="myForm">
-        @method('PUT')
-        @csrf
+    <section class="main-container" id="create-edit">
+        <div class="content-container">
+            <form class="inputContainer" action="{{ route('rack.update',$rack->id) }}" method="POST" id="myForm">
+                <div>
+                    @method('PUT')
+                    @csrf
 
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" placeholder="es: Gruppo A" value="{{ old('name', $rack->name) }}">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" placeholder="es: Gruppo A" value="{{ old('name', $rack->name) }}">
 
-        @error('name')
-            <span>
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+                    @error('name')
+                        <span>
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-        <button type="submit">Crea gruppo</button>
-    </form>
+
+                <button class="submit" type="submit">Crea gruppo</button>
+            </form>
+        </div>
+    </section>
 @endsection

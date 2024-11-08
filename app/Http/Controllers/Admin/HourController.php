@@ -31,17 +31,6 @@ class HourController extends Controller
         }
     }
 
-    public function create()
-    {
-        if (Auth::user()->role === 'common') {
-            abort(403);
-        } else {
-        if (Auth::user()->role === 'common'){
-            abort(403);
-        }
-        return view('hours.create');
-        }
-    }
 
     public function store(Request $request)
     {

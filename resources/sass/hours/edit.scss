@@ -1,0 +1,17 @@
+#edit{
+    .add{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+
+        .submit{
+            width: 10rem;
+            margin-left: 5rem;
+        }
+
+        .time{
+            width: 5rem;
+        }
+    }
+}

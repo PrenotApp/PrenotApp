@@ -26,7 +26,7 @@ function validate() {
 function updateErrors() {
     // # NAME
     const nameEl = document.getElementById('name');
-    const nameErrorEl = document.querySelector('#name ~ .error');
+    const nameErrorEl = document.getElementById('nameEr');
     function nameFunc (input, error) {
         const inpuitValue = input.value; // Prendi il valore dell'input
         if (inpuitValue.trim().length == 0) { // Definisici regola
@@ -54,7 +54,6 @@ function updateErrors() {
         if (start != "" && end != "") { // se start e end sono inseriti
             error.classList.remove('on'); // rimuovi errore
             error.innerText = '';
-            console.log('non nulli')
             function timeToMinutes(time) { // converte 02:12 in 132 minuti
                 const [hours, minutes] = time.split(":").map(Number);
                 return hours * 60 + minutes;
