@@ -47,11 +47,11 @@
                             <a href="{{ route('booking.index') }}">
                                 Prenotazioni
                             </a>
-                        @endif
-                        @if(Auth::check() && Auth::user()->role !== 'common')
                             <a href="{{ route('hour.index') }}">
                                 Orario
                             </a>
+                        @endif
+                        @if(Auth::check() && Auth::user()->role !== 'common')
                             <a href="{{ route('approved.index') }}">
                                 Docenti
                             </a>

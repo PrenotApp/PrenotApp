@@ -55,15 +55,15 @@
                             </div>
                         </div>
                         @if(Auth::check() && Auth::user()->role !== 'common')
-                        <div class="buttons">
-                            <a class="btn btn-warning" href="{{ route('hour.edit', $hour->id) }}">Modifica</a>
-                            <form action="{{ route('hour.delete', $hour->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
+                            <div class="buttons">
+                                <a class="btn btn-warning" href="{{ route('hour.edit', $hour->id) }}">Modifica</a>
+                                <form action="{{ route('hour.delete', $hour->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button class="btn btn-danger" type="submit">Elimina</button>
-                            </form>
-                        </div>
+                                    <button class="btn btn-danger" type="submit">Elimina</button>
+                                </form>
+                            </div>
                         @endif
                     </div>
                     @if ($index < count($hours) - 1)

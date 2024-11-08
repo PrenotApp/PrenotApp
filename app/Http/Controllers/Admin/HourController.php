@@ -16,9 +16,6 @@ class HourController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role === 'common') {
-            abort(403);
-        } else {
         $hours = Hour::where('school_id', Auth::user()->school_id)
             ->orderBy('start', 'asc')
             ->get()
@@ -28,7 +25,6 @@ class HourController extends Controller
                 return $hour;
             });
         return view('hours.index', compact('hours'));
-        }
     }
 
     public function store(Request $request)
