@@ -16,7 +16,7 @@
         <div class="content-container">
 
             <!-- Form per aggiungere un docente -->
-            <form class="inputContainer" action="{{ route('approved.store') }}" method="POST">
+            <form class="inputContainer" action="{{ route('approved.store') }}" method="POST" id="myForm">
                 @csrf
                 <div>
                     <input type="text" name="email" id="email" placeholder="Scrivi email docente">

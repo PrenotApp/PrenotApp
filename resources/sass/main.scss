@@ -36,7 +36,32 @@
 
     .content-container{
         width: 50rem;
+        max-width: 90vw;
     }
+}
+
+@media screen and (max-width: 767px) {
+    span.navbar-toggler-icon{
+        filter: invert(100%);
+    }
+
+    div#navbarSupportedContent{
+        background-color: $body-bg;
+        z-index: 2;
+        ul a,
+        ul li{
+            padding: 8px 0;
+        }
+    }
+}
+
+#LogoutEl{
+    color: $error;
+}
+
+.alert{
+    max-width: 50rem;
+    margin: 0 auto;
 }
 
 .bold{
@@ -123,7 +148,7 @@ main{
 
     select{
         height: 62px;
-        
+
         option{
             background-color: #D9D9D9;
             color: black;

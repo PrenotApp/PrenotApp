@@ -25,7 +25,7 @@
                 Crea categoria
             </a>
             <a class="submit" href="{{ route('item.create') }}">
-                Aggiungi dispositivo
+                Aggiungi articolo
             </a>
             <a class="btn btn-warning d-flex align-items-center" href="{{ route('item.trashed') }}">
                 <i class="fa-solid fa-trash"></i>

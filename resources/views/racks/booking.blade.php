@@ -18,9 +18,9 @@
                 <h2 class="bold" name="item" id="item">{{ $rack->name }}</h2></a>
 
                 <div class="inputContainer">
-                <label for="date">Giorno</label>
-                <input type="date" name="date" id="date">
-                <div class="error"></div>
+                    <label for="date">Giorno</label>
+                    <input type="date" name="date" id="date">
+                    <div class="error"></div>
                 </div>
 
                 <div class="inputContainer">

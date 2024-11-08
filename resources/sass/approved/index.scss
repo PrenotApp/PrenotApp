@@ -77,3 +77,15 @@ a.submit{
     }
 
 }
+
+
+@media screen and (max-width:767px){
+    #myForm{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #approvedList div{
+        flex-wrap: wrap;
+    }
+}
