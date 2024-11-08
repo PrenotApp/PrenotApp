@@ -27,6 +27,9 @@
             <a class="submit" href="{{ route('item.create') }}">
                 Aggiungi articolo
             </a>
+            <a class="btn btn-warning d-flex align-items-center" href="{{ route('item.trashed') }}">
+                <i class="fa-solid fa-trash"></i>
+            </a>
         </div>
     </section>
     @endif

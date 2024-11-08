@@ -14,3 +14,24 @@ table *{
         padding: 5px 10px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none; /* Nasconde l'intestazione della tabella */
+    }
+
+    tr {
+        margin-bottom: 10px; /* Spazio tra righe */
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+}

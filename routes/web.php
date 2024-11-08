@@ -38,21 +38,25 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::delete('/scuole/{school}/elimina', [ManagerController::class, 'deleteSchool'])->name('manager.delete');
     Route::patch('/scuole/{school}/ripristina',[ManagerController::class, 'restore'])->name('manager.restore');
     // # Items
-    Route::get('/dispositivo/crea', [ItemController::class, 'create'])->name('item.create');
-    Route::post('/dispositivo/aggiungi', [ItemController::class, 'store'])->name('item.store');
-    Route::get('/dispositivo/{id}', [ItemController::class, 'show'])->name('item.show');
-    Route::get('/dispositivo/{id}/modifica', [ItemController::class, 'edit'])->name('item.edit');
-    Route::put('/dispositivo/{id}/aggiorna', [ItemController::class, 'update'])->name('item.update');
-    Route::delete('/dispositivo/{id}/elimina', [ItemController::class, 'delete'])->name('item.delete');
+    Route::get('/articoli/crea', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/articoli/aggiungi', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/articoli/eliminati', [ItemController::class, 'trashed'])->name('item.trashed');
+    Route::patch('/articoli/{id}/ripristina', [ItemController::class, 'restore'])->name('item.restore');
+    Route::delete('/articoli/{id}/distruggi', [ItemController::class, 'destroy'])->name('item.destroy');
+    Route::get('/articoli/{id}/modifica', [ItemController::class, 'edit'])->name('item.edit');
+    Route::put('/articoli/{id}/aggiorna', [ItemController::class, 'update'])->name('item.update');
+    Route::delete('/articoli/{id}/elimina', [ItemController::class, 'delete'])->name('item.delete');
+    Route::get('/articoli/{id}', [ItemController::class, 'show'])->name('item.show');
     // # Categories
-    Route::get('/categoria/crea', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('/categoria/aggiungi', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/categorie/crea', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/categorie/aggiungi', [CategoryController::class, 'store'])->name('category.store');
     // # Hours
-    Route::get('/orario',[HourController::class, 'index'])->name('hour.index');
-    Route::post('/orario/aggiungi', [HourController::class, 'store'])->name('hour.store');
-    Route::get('/orario/{id}/modifica',[HourController::class, 'edit'])->name('hour.edit');
-    Route::put('/orario/{id}/aggiorna',[HourController::class, 'update'])->name('hour.update');
-    Route::delete('/orario/{id}/elimina',[HourController::class, 'delete'])->name('hour.delete');
+    Route::get('/orari',[HourController::class, 'index'])->name('hour.index');
+    Route::get('/orari/crea',[HourController::class, 'create'])->name('hour.create');
+    Route::post('/orari/aggiungi', [HourController::class, 'store'])->name('hour.store');
+    Route::get('/orari/{id}/modifica',[HourController::class, 'edit'])->name('hour.edit');
+    Route::put('/orari/{id}/aggiorna',[HourController::class, 'update'])->name('hour.update');
+    Route::delete('/orari/{id}/elimina',[HourController::class, 'delete'])->name('hour.delete');
     // # Bookings
     Route::get('prenotazioni',[BookingController::class, 'index'])->name('booking.index');
     Route::get('/prenotazioni/filtri', [BookingController::class, 'filter'])->name('booking.filter');
