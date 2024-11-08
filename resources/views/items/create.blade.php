@@ -5,33 +5,42 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('item.store') }}" method="POST" id="myForm">
-        @csrf
+    <section class="myContainer">
+        <h6>Crea articolo</h6>
 
-        <label for="category_id">Categoria</label>
-        <select name="category_id" id="category_id">
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select>
+        <form action="{{ route('item.store') }}" method="POST" id="myForm">
+            @csrf
+            <div class="inputContainer">
+                <label for="category_id">Categoria</label>
+                <select name="category_id" id="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name" placeholder="es: Aula 12">
+            <div class="inputContainer">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" placeholder="es: Aula 12">
 
-        @error('name')
-            <span>
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+                @error('name')
+                    <span>
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
 
-        <p>Vuoi aggiungere il tuo item a un gruppo?</p>
-        <select name="rack_id" id="rack_id">
-            <option value="" selected>Nessuno</option>
-            @foreach($racks as $rack)
-            <option value="{{ $rack->id }}">{{ $rack->name }}</option>
-            @endforeach
-        </select>
+            <div class="inputContainer">
+                <label>Aggiungi al gruppo</label>
+                <select name="rack_id" id="rack_id">
+                    <option value="" selected>Nessuno</option>
+                    @foreach($racks as $rack)
+                    <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <button type="submit">Crea dispositivo</button>
-    </form>
+            <button type="submit" class="submit">Crea articolo</button>
+        </form>
+    </section>
 @endsection

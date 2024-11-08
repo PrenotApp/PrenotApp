@@ -28,10 +28,8 @@ use Illuminate\Database\Capsule\Manager;
 
 Auth::routes(['verify' => true]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // # Manager
     Route::get('/scuole', [ManagerController::class, 'indexSchool'])->name('manager.index');
     Route::post('/scuole/aggiungi', [ManagerController::class, 'storeSchool'])->name('manager.store');

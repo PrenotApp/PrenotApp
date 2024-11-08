@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('links')
-    @vite(['resources/js/racksAvailable.js','resources/sass/racks/booking.scss'])
+    @vite(['resources/js/racksAvailable.js','resources/js/validations/rackBooking.js','resources/sass/racks/booking.scss'])
 @endsection
 
 @section('meta')

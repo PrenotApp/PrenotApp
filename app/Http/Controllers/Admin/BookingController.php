@@ -19,6 +19,9 @@ class BookingController extends Controller
     {
         $bookings = $this->getBookingsQuery()
             ->with('hour')
+            ->whereHas('hour', function ($query) {
+                $query->whereNull('deleted_at');
+            })
             ->orderBy('date', 'desc')
             ->get()
             ->map(function ($booking) {
