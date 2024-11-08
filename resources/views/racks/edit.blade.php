@@ -24,7 +24,7 @@
                 </div>
 
 
-                <button class="submit" type="submit">Crea gruppo</button>
+                <button class="submit" type="submit">Modifica gruppo</button>
             </form>
         </div>
     </section>

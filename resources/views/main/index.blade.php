@@ -25,7 +25,7 @@
                 Crea categoria
             </a>
             <a class="submit" href="{{ route('item.create') }}">
-                Aggiungi dispositivo
+                Aggiungi articolo
             </a>
         </div>
     </section>

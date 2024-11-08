@@ -31,7 +31,6 @@ class HourController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
         if (Auth::user()->role === 'common') {

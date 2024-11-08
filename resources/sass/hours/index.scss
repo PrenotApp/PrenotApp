@@ -10,10 +10,9 @@
         justify-content: space-between;
         align-items: center;
 
-
         .submit{
             width: 10rem;
-            margin-left: 5rem;
+            justify-self: right;
         }
 
         .time{
@@ -54,3 +53,13 @@
 }
 
 
+@media screen and (max-width: 710px) {
+    .add{
+        flex-wrap: wrap;
+    }
+
+    .singleEl{
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+}

@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 // Import other models
 use App\Models\School;
 use App\Models\Booking;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hour extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',
