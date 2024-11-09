@@ -181,4 +181,16 @@ class RackController extends Controller
         }
         return redirect()->route('home')->with('success', "Prenotazione per '$rackName' effettuata con successo.");
     }
+
+    public function delete($id)
+    {
+        if (Auth::user()->role === 'common') {
+            abort(403);
+        } else {
+            // dd($id);
+            $rack = Rack::findOrFail($id);
+            $rack->delete();
+        return redirect()->route('home')->with('success', 'Carrello eliminato con successo.');
+        }
+    }
 }

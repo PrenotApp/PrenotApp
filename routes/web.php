@@ -79,6 +79,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/gruppi/{gruppo}/prenota',[RackController::class, 'booking'])->name('rack.booking');
     Route::get('/gruppi/disponibili', [RackController::class, 'getAvailableItems'])->name('rack.available');
     Route::post('/gruppi/{gruppo}/prenota',[RackController::class, 'bookAvailable'])->name('rack.book');
+    Route::delete('/gruppi/{gruppo}/elimina',[RackController::class, 'delete'])->name('rack.delete');
     // # Mail
     // Route::resource('provaroute', ManagerController::class);
 });

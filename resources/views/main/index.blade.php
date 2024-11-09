@@ -94,11 +94,20 @@
                                             <h4 data-bs-toggle="collapse" data-bs-target="#collapseRack-{{ $rack->id }}" aria-expanded="false" aria-controls="collapseRack-{{ $rack->id }}">
                                                 {{ $rack->name }}
                                             </h4>
-                                            <div>
+                                            <div class="d-flex">
                                                 @if(Auth::check() && Auth::user()->role !== 'common')
-                                                <a class="btn btn-warning" href="{{ route('rack.edit', $rack) }}">Modifica</a>
+                                                    <form action="{{ route('rack.delete', $rack->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button class="btn btn-danger" type="submit">Elimina</button>
+                                                    </form>
                                                 @endif
-                                                <a class="btn btn-primary" href="{{ route('rack.booking', $rack->id) }}">Prenota</a>
+
+                                                @if(Auth::check() && Auth::user()->role !== 'common')
+                                                <a class="btn btn-warning ms-3" href="{{ route('rack.edit', $rack) }}">Modifica</a>
+                                                @endif
+                                                <a class="btn btn-primary ms-3" href="{{ route('rack.booking', $rack->id) }}">Prenota</a>
                                             </div>
                                         </section>
                                     </h2>
