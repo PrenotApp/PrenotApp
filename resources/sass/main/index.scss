@@ -35,6 +35,11 @@
             align-items: center;
         }
 
+
+    }
+
+    .btn-danger{
+        height: 41.4px;
     }
 
     .accordion-button{
@@ -156,4 +161,13 @@
             max-width: 20rem;
         }
     }
+}
+
+
+@media screen and (max-width:576px){
+    .rack-section{
+        display: flex;
+        flex-direction: column;
+    }
+
 }
