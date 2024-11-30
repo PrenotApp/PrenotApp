@@ -81,7 +81,7 @@ class BookingController extends Controller
     public function create($id){
         $item = Item::findOrFail($id);
         $user = Auth::user();
-        if ($item->school_id != $user->school_id || $user->role == 'common') {
+        if ($item->school_id != $user->school_id) {
             abort(403);
         }
         $hours = Hour::where('school_id', $user->school_id)
